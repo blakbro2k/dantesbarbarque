@@ -1,4 +1,6 @@
-package net.asg.dante;
+package net.asg.games.dante;
+
+import net.asg.games.images.ImageProvider;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
@@ -11,10 +13,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class DantesBarbarque implements ApplicationListener {
-	private OrthographicCamera camera;
-	private SpriteBatch batch;
-	private Texture texture;
-	private Sprite sprite;
+	protected OrthographicCamera camera;
+	protected SpriteBatch batch;
+	protected Texture texture;
+	protected Sprite sprite;
+	protected ImageProvider imageProvider;
 	
 	@Override
 	public void create() {		
@@ -62,5 +65,9 @@ public class DantesBarbarque implements ApplicationListener {
 
 	@Override
 	public void resume() {
+	}
+	
+	public ImageProvider getImageProvider() {
+		return imageProvider;
 	}
 }
