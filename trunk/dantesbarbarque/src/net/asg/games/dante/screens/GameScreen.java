@@ -1,6 +1,8 @@
 package net.asg.games.dante.screens;
 
 import net.asg.games.dante.DantesBarbarqueGame;
+import net.asg.games.dante.models.Bob;
+import net.asg.games.dante.models.Button;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -19,12 +21,18 @@ public class GameScreen extends CommonScreen{
     protected DantesBarbarqueGame game;
     
     protected Texture backgroundImage;
+    
+    protected TextureRegion bobRegion;
+    
+    protected Bob bob;
+    
+    protected Button backButton;
+
     /*
     private ImageProvider imageProvider;
     
     private SoundManager soundManager;
     
-    private TextureRegion basketRegion;
     
     private Texture backgroundImage;    
     
@@ -82,9 +90,17 @@ public class GameScreen extends CommonScreen{
 		
         camera = new OrthographicCamera();
         camera.setToOrtho(false, imageProvider.getScreenWidth(), imageProvider.getScreenHeight());
+        
         batch = new SpriteBatch();
         
+        bobRegion = imageProvider.getBob();
+        bob = new Bob(imageProvider.getScreenWidth(), bobX, bobY);
+              
+        backButton = new Button(imageProvider.getBack());
+        backButton.setPos(10, 10);
+        
         Gdx.input.setInputProcessor(this);
+        Gdx.input.setCatchBackKey(true);
     }
     
 	@Override

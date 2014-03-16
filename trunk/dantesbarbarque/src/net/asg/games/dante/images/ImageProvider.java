@@ -1,4 +1,4 @@
-package net.asg.games.images;
+package net.asg.games.dante.images;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;

@@ -1,7 +1,7 @@
 package net.asg.games.dante.screens;
 
 import net.asg.games.dante.DantesBarbarque;
-import net.asg.games.images.ImageProvider;
+import net.asg.games.dante.images.ImageProvider;
 
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
