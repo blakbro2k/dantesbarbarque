@@ -1,10 +1,11 @@
 package net.asg.games.dante;
 
-
+import net.asg.games.dante.images.ImageProvider;
 import net.asg.games.dante.screens.GameScreen;
-import net.asg.games.images.ImageProvider;
 
 import com.badlogic.gdx.Game;
+
+
 
 public class DantesBarbarqueGame extends Game{
 	protected ImageProvider imageProvider;
@@ -16,7 +17,6 @@ public class DantesBarbarqueGame extends Game{
 	
 	@Override
 	public void create() {
-		// TODO Auto-generated method stub
 		imageProvider = new ImageProvider();
         imageProvider.load();
         
@@ -37,6 +37,18 @@ public class DantesBarbarqueGame extends Game{
 	public ImageProvider getImageProvider() {
 		return imageProvider;
 	}
+	
+	public void showHelp() {
+		//setScreen(new HelpScreen(this));
+	}
+	
+	public void gotoMenuScreen() {
+		//setScreen(new MenuScreen(this));
+	}
+	
+	//public TextResources getTextResources() {
+	//	return textResources;
+	//}
 	
 	@Override
 	public void dispose() {

@@ -1,6 +1,6 @@
 package net.asg.games.dante;
 
-import net.asg.games.images.ImageProvider;
+import net.asg.games.dante.images.ImageProvider;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
