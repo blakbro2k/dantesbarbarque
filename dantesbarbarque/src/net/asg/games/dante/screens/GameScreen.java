@@ -3,14 +3,17 @@ package net.asg.games.dante.screens;
 import net.asg.games.dante.DantesBarbarqueGame;
 import net.asg.games.dante.models.Bob;
 import net.asg.games.dante.models.Button;
+import net.asg.games.dante.models.World;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 //import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.math.Vector2;
 
 public class GameScreen extends CommonScreen{
 
@@ -27,6 +30,10 @@ public class GameScreen extends CommonScreen{
     protected Bob bob;
     
     protected Button backButton;
+    
+    private World world;
+    
+    private WorldRenderer renderer;
 
     /*
     private ImageProvider imageProvider;
@@ -91,25 +98,31 @@ public class GameScreen extends CommonScreen{
         camera = new OrthographicCamera();
         camera.setToOrtho(false, imageProvider.getScreenWidth(), imageProvider.getScreenHeight());
         
-        batch = new SpriteBatch();
+        //batch = new SpriteBatch();
         
         bobRegion = imageProvider.getBob();
-        bob = new Bob(imageProvider.getScreenWidth(), bobX, bobY);
+        bob = new Bob(new Vector2(3,4));
               
         backButton = new Button(imageProvider.getBack());
         backButton.setPos(10, 10);
         
-        Gdx.input.setInputProcessor(this);
-        Gdx.input.setCatchBackKey(true);
+        //Gdx.input.setInputProcessor(this);
+        //Gdx.input.setCatchBackKey(true);
+        
+		world = new World(game);
+		renderer = new WorldRenderer(world);
     }
     
 	@Override
 	public void render(float delta) {
-        camera.update();
-        batch.setProjectionMatrix(camera.combined);
-        batch.begin();
-        batch.draw(backgroundImage, 0, 0);
-        batch.end(); 
+        //camera.update();
+       // batch.setProjectionMatrix(camera.combined);
+       // batch.begin();
+       // batch.draw(backgroundImage, 0, 0);
+        //batch.end(); 
+		Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
+		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		renderer.render();
 	}
 	
 	@Override
