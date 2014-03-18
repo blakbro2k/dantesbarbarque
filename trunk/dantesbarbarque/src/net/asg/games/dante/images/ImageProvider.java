@@ -32,7 +32,7 @@ public class ImageProvider {
 		atlas = new TextureAtlas(Gdx.files.internal("game.atlas"));
 		textAtlas  = new TextureAtlas(Gdx.files.internal("text_images.atlas"));
 
-		backgroundAutumn = new Texture(Gdx.files.internal("autumn.png"));
+		//backgroundAutumn = new Texture(Gdx.files.internal("autumn.png"));
 		//backgroundWinter = new Texture(Gdx.files.internal("winter.png"));
 		//backgroundSpring = new Texture(Gdx.files.internal("spring.png"));
 		//backgroundSummer = new Texture(Gdx.files.internal("summer.png"));
