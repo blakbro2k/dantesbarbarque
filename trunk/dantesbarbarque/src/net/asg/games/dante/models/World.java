@@ -1,5 +1,8 @@
 package net.asg.games.dante.models;
 
+
+import net.asg.games.dante.images.ImageProvider;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -11,6 +14,7 @@ public class World {
 	/** Our player controlled hero **/
 	Bob bob;
 	private Game game;
+	private ImageProvider imageProvider;
 
 	// Getters -----------
 	public Array<Block> getBlocks() {
@@ -21,8 +25,8 @@ public class World {
 	}
 	// --------------------
 
-	public World(Game game) {
-		this.game = game;
+	public World(ImageProvider imageProvider) {
+		this.imageProvider = imageProvider;
 		createDemoWorld();
 	}
 	
@@ -31,7 +35,7 @@ public class World {
 	}
 
 	private void createDemoWorld() {
-		bob = new Bob(new Vector2(7, 2));
+	//	bob = new Bob(new Vector2(2, 2));
 
 		for (int i = 0; i < 10; i++) { 			 			
 			blocks.add(new Block(new Vector2(i, 0))); 			 			

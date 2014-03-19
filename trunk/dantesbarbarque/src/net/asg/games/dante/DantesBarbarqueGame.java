@@ -8,9 +8,10 @@ import com.badlogic.gdx.Game;
 
 
 public class DantesBarbarqueGame extends Game{
-	protected ImageProvider imageProvider;
-	protected GameScreen gameScreen;
-	
+	private ImageProvider imageProvider;
+	private GameScreen gameScreen;
+	//private TextResources textResources;
+
 	public DantesBarbarqueGame(){
 		
 	}
