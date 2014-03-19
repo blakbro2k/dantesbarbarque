@@ -15,13 +15,7 @@ public class ImageProvider {
 	
 	private TextureAtlas textAtlas;
 	
-	private Texture backgroundSpring;
-	
-	private Texture backgroundSummer;
-	
-	private Texture backgroundAutumn;
-	
-	private Texture backgroundWinter;
+	private Texture backgroundFire;
 	
 	private Texture sign;	
 	
@@ -31,23 +25,16 @@ public class ImageProvider {
 	public void load() {
 		atlas = new TextureAtlas(Gdx.files.internal("game.atlas"));
 		textAtlas  = new TextureAtlas(Gdx.files.internal("text_images.atlas"));
-
-		//backgroundAutumn = new Texture(Gdx.files.internal("autumn.png"));
-		//backgroundWinter = new Texture(Gdx.files.internal("winter.png"));
-		//backgroundSpring = new Texture(Gdx.files.internal("spring.png"));
-		//backgroundSummer = new Texture(Gdx.files.internal("summer.png"));
 		
-		//sign = new Texture(Gdx.files.internal("sign.png"));
+		backgroundFire = new Texture(Gdx.files.internal("Fire_bg.png"));
+
+		
 	}
 	
 	public void dispose() {
 		atlas.dispose();
 		textAtlas.dispose();
-		backgroundSpring.dispose();
-		//backgroundSummer.dispose();
-		//backgroundAutumn.dispose();
-		//backgroundWinter.dispose();
-		//sign.dispose();
+		backgroundFire.dispose();
 	}
 	
 	public int getScreenWidth() {
@@ -58,22 +45,10 @@ public class ImageProvider {
 		return SCREEN_HEIGHT;
 	}
 	
-	public Texture getBackgroundAutumn() {
-		return backgroundAutumn;
+	public Texture getBackgroundFire() {
+		return backgroundFire;
 	}
 	
-	public Texture getBackgroundWinter() {
-		return backgroundWinter;
-	}
-	
-	public Texture getBackgroundSpring() {
-		return backgroundSpring;
-	}
-	
-	public Texture getBackgroundSummer() {
-		return backgroundSummer;
-	}
-
 	public Texture getBoard() {
 		return sign;
 	}

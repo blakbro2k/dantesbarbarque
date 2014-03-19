@@ -1,55 +1,89 @@
 package net.asg.games.dante.models;
 
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
-
-
 
 public class Bob {
 
-	    public enum State {
-	        IDLE, MOVING, SHOOTING, DYING
+	    private int SPEED = 600;
+
+	    private int width = 72;
+	    
+	    private int height = 72;
+	    
+	    private int screenWidth;
+	    
+	    private int screenHeight;
+	    
+		private Rectangle bounds;
+
+		public Bob(int screenHeight,int screenWidth, int posX, int posY) {
+			bounds = new Rectangle();
+			this.screenWidth = screenWidth;
+			this.screenHeight = screenHeight;
+			
+	        if (posX < 0) {
+	        	bounds.x = screenWidth / 2 - width / 2;
+	        }
+	        
+	        else {
+	        	bounds.x = posX;
+	        }
+	        
+	       if (posY < 0) {
+	        	bounds.y = screenHeight / 2 - height / 2;
+	        }
+	        
+	        else {
+	        	bounds.y = posX;
+	        }
+	       
+	       // bounds.x = 20;
+	        bounds.width = width;
+	        bounds.height = height;
+		}
+
+	    public void setPositionX(float x) {
+	    	bounds.x = x - width/2;
+	        
+	        keepOnScreen();
+	    }
+	    
+	    public void setPositionY(float y) {
+	    	bounds.y = y - height/2;
+	        
+	        keepOnScreen();
 	    }
 
-	    static final float SPEED = 2f;  // unit per second
-	    static final float JUMP_VELOCITY = 1f;
-	    static final float SIZE = 0.5f; // half a unit
-
-		Vector2 	position = new Vector2();
-		Vector2 	acceleration = new Vector2();
-		Vector2 	velocity = new Vector2();
-		Rectangle 	bounds = new Rectangle();
-		State		state = State.IDLE;
-		boolean		facingLeft = true;
-		
-		public Bob(Vector2 position) {
-			this.position = position;
-			this.bounds.height = SIZE;
-			this.bounds.width = SIZE;
-		}
-		public Vector2 getPosition() {
-			return position;
-		}
-
-		public Vector2 getAcceleration() {
-			return acceleration;
-		}
-
-		public Vector2 getVelocity() {
-			return velocity;
-		}
-
-		public Rectangle getBounds() {
+		public Rectangle getPosition() {
 			return bounds;
 		}
 
-		public State getState() {
-			return state;
-		}
-		
-		public void setState(State newState) {
-			this.state = newState;
-		}
+	    private void keepOnScreen() {
+	        if (bounds.y < 0) {
+	        	bounds.y = 0;
+	        }
+	       else if (bounds.y + height> screenHeight) {
+	        	bounds.y = screenHeight - height;
+	        }
+	        if (bounds.x < 0) {
+	        	bounds.x = 0;
+	        }
+	        else if (bounds.x + width > screenWidth) {
+	        	bounds.x = screenWidth - width;
+	        }
+	    }
+	    
+	    public void moveX(float speedRatio, float delta) {
+	    	bounds.x += speedRatio * SPEED * delta;
+	        
+	        keepOnScreen();
+	    }
+	    
+	    public void moveY(float speedRatio, float delta) {
+	    	bounds.y += speedRatio * SPEED * delta;
+	        
+	        keepOnScreen();
+	    }
 
 
 }
