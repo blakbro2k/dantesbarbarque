@@ -7,11 +7,11 @@ public class SoundManager {
 
 	private boolean isSoundOn;
 
-	private Sound catchSound;
-//
-	//private Sound missSound;
+	private Sound cannonSound;
+
+	private Sound flameBurst;
 	
-	//private Sound tictacSound;
+	private Sound firewoosh;
 
 	//private Sound dingdongSound;
 	
@@ -26,39 +26,39 @@ public class SoundManager {
 	}
 	
 	public void load() {
-      catchSound = Gdx.audio.newSound(Gdx.files.internal("catch.ogg"));
-       /// missSound = Gdx.audio.newSound(Gdx.files.internal("miss.ogg"));
-       // tictacSound = Gdx.audio.newSound(Gdx.files.internal("tictac.ogg"));
+		cannonSound = Gdx.audio.newSound(Gdx.files.internal("cannon.ogg"));
+        flameBurst = Gdx.audio.newSound(Gdx.files.internal("flameBurst2.ogg"));
+        firewoosh = Gdx.audio.newSound(Gdx.files.internal("firewoosh.ogg"));
        // dingdongSound = Gdx.audio.newSound(Gdx.files.internal("dingdong.ogg"));
        // bellSound = Gdx.audio.newSound(Gdx.files.internal("bell.ogg"));
 	}
 	
 	public void dispose() {
-        catchSound.dispose();
-      //  dingdongSound.dispose();
+		cannonSound.dispose();
+        flameBurst.dispose();
        // tictacSound.dispose();
        // missSound.dispose();
       //  bellSound.dispose();
 	}
 	
-	public void playCatchSound() {
+	public void playCannonSound() {
 		if (isSoundOn) {
-			catchSound.play();
+			cannonSound.play();
 		}
 	}
-/*
-	public void playDingDongSound() {
+
+	public void playflameBurstSound() {
 		if (isSoundOn) {
-			dingdongSound.play();
-		}
-	}
-	
-	public void playMissSound() {
-		if (isSoundOn) {
-			missSound.play();
+			flameBurst.play();
 		}
 	}
 	
+	public void playfirewooshSound() {
+		if (isSoundOn) {
+			firewoosh.play();
+		}
+	}
+	/*
 	public void playTicTacSound() {
 		if (isSoundOn) {
 			tictacSound.play();

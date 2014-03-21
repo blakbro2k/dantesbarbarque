@@ -2,6 +2,7 @@ package net.asg.games.dante;
 
 import net.asg.games.dante.images.ImageProvider;
 import net.asg.games.dante.screens.GameScreen;
+import net.asg.games.dante.sound.SoundManager;
 
 import com.badlogic.gdx.Game;
 
@@ -11,6 +12,7 @@ public class DantesBarbarqueGame extends Game{
 	private ImageProvider imageProvider;
 	private GameScreen gameScreen;
 	//private TextResources textResources;
+	private SoundManager soundManager;
 
 	public DantesBarbarqueGame(){
 		
@@ -21,8 +23,8 @@ public class DantesBarbarqueGame extends Game{
 		imageProvider = new ImageProvider();
         imageProvider.load();
         
-        //soundManager = new SoundManager();
-        //soundManager.load();
+        soundManager = new SoundManager();
+        soundManager.load();
         
         //menuScreen = new MenuScreen(this);
         //levelScreen = new LevelScreen(this);
@@ -54,10 +56,14 @@ public class DantesBarbarqueGame extends Game{
 	@Override
 	public void dispose() {
 		imageProvider.dispose();
-		//soundManager.dispose();
+		soundManager.dispose();
 		
 		//menuScreen.dispose();
 		//levelScreen.dispose();
 		gameScreen.dispose();
+	}
+
+	public SoundManager getSoundManager() {
+		return soundManager;
 	}
 }

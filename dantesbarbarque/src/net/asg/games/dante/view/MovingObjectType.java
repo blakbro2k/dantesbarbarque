@@ -8,7 +8,6 @@ package net.asg.games.dante.view;
  *
  */
 public enum MovingObjectType {
-	
     	Fireball(0),
 	    OpenWall(1),
 	    CloseWall(2),
