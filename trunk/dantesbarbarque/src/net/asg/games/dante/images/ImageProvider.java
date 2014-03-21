@@ -26,9 +26,7 @@ public class ImageProvider {
 		atlas = new TextureAtlas(Gdx.files.internal("game.atlas"));
 		textAtlas  = new TextureAtlas(Gdx.files.internal("text_images.atlas"));
 		
-		backgroundFire = new Texture(Gdx.files.internal("Fire_bg.png"));
-
-		
+		backgroundFire = new Texture(Gdx.files.internal("Fire_bg.png"));		
 	}
 	
 	public void dispose() {
@@ -102,6 +100,14 @@ public class ImageProvider {
 			return atlas.findRegion("sound_on");
 		}
 		return atlas.findRegion("sound_off");
+	}
+	
+	public TextureRegion getFireball() {
+		return atlas.findRegion("Fireball");
+	}
+	
+	public TextureRegion getFireWall(int frame) {
+		return atlas.findRegion("firewall", frame);
 	}
 	
 	/*public int getFruitsCount() {
@@ -208,4 +214,6 @@ public class ImageProvider {
 	public TextureRegion getSuccessLabel() {
 		return textAtlas.findRegion("Success");
 	}
+
+
 }

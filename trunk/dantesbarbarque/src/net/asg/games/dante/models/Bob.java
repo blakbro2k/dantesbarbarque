@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class Bob {
 
-	    private int SPEED = 600;
+	    private int SPEED = 510;
 
 	    private int width = 72;
 	    
