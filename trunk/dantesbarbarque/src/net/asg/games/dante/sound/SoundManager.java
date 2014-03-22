@@ -13,7 +13,7 @@ public class SoundManager {
 	
 	private Sound firewoosh;
 
-	//private Sound dingdongSound;
+	private Sound buzzSound;
 	
 	//private Sound bellSound;
 	
@@ -29,16 +29,16 @@ public class SoundManager {
 		cannonSound = Gdx.audio.newSound(Gdx.files.internal("cannon.ogg"));
         flameBurst = Gdx.audio.newSound(Gdx.files.internal("flameBurst2.ogg"));
         firewoosh = Gdx.audio.newSound(Gdx.files.internal("firewoosh.ogg"));
-       // dingdongSound = Gdx.audio.newSound(Gdx.files.internal("dingdong.ogg"));
+        buzzSound = Gdx.audio.newSound(Gdx.files.internal("buzz.ogg"));
        // bellSound = Gdx.audio.newSound(Gdx.files.internal("bell.ogg"));
 	}
 	
 	public void dispose() {
 		cannonSound.dispose();
         flameBurst.dispose();
-       // tictacSound.dispose();
-       // missSound.dispose();
-      //  bellSound.dispose();
+        firewoosh.dispose();
+        buzzSound.dispose();
+        //bellSound.dispose();
 	}
 	
 	public void playCannonSound() {
@@ -58,13 +58,13 @@ public class SoundManager {
 			firewoosh.play();
 		}
 	}
-	/*
-	public void playTicTacSound() {
+	
+	public void playBuzzSound() {
 		if (isSoundOn) {
-			tictacSound.play();
+			buzzSound.play();
 		}
 	}	
-	
+	/*
 	public void playBellSound() {
 		if (isSoundOn) {
 			bellSound.play();
