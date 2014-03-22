@@ -2,6 +2,8 @@ package net.asg.games.dante.images;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureWrap;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -17,7 +19,13 @@ public class ImageProvider {
 	
 	private Texture backgroundFire;
 	
-	private Texture sign;	
+	private Texture sign;
+	
+	private Texture animatedFireBackground;
+	
+	private Sprite backgroundSprite;
+	
+	public float backgroundSpeed = 0.8f;
 	
 	public ImageProvider() {
 	}
@@ -26,13 +34,17 @@ public class ImageProvider {
 		atlas = new TextureAtlas(Gdx.files.internal("game.atlas"));
 		textAtlas  = new TextureAtlas(Gdx.files.internal("text_images.atlas"));
 		
-		backgroundFire = new Texture(Gdx.files.internal("Fire_bg.png"));		
+		backgroundFire = new Texture(Gdx.files.internal("Fire_bg.png"));
+		animatedFireBackground = new Texture(Gdx.files.internal("inferno.png"));
+		animatedFireBackground.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
+		backgroundSprite = new Sprite(animatedFireBackground,0,0,this.getScreenWidth(),this.getScreenHeight());
 	}
 	
 	public void dispose() {
 		atlas.dispose();
 		textAtlas.dispose();
 		backgroundFire.dispose();
+		animatedFireBackground.dispose();
 	}
 	
 	public int getScreenWidth() {
@@ -45,6 +57,10 @@ public class ImageProvider {
 	
 	public Texture getBackgroundFire() {
 		return backgroundFire;
+	}
+	
+	public Sprite getBackgroundSprite(){
+		return backgroundSprite;
 	}
 	
 	public Texture getBoard() {

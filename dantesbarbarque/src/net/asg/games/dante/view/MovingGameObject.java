@@ -17,6 +17,7 @@ package net.asg.games.dante.view;
  ******************************************************************************/
 
 import net.asg.games.dante.images.ImageProvider;
+import net.asg.games.dante.sound.SoundManager;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -50,18 +51,28 @@ public class MovingGameObject {
 	protected TextureRegion[] textureRegions;
 
 	protected ImageProvider imageProvider;
+	
+	protected SoundManager soundManager;
 
 	protected Rectangle getPosition() {
 		return rect;
 	}
 
 	public MovingGameObject(ImageProvider imageProvider,
-			TextureRegion[] textureRegions, int width, int height, boolean isHitboxActive) {
+			TextureRegion[] textureRegions, SoundManager soundManager, int width, int height, boolean isHitboxActive) {
 		this.imageProvider = imageProvider;
+		this.soundManager = soundManager;
 		this.textureRegions = textureRegions;
 		this.isHitboxActive = isHitboxActive;
 		this.height = height;
 		this.width = width;
+		
+		rect = new Rectangle();
+		rect.width = width;
+		rect.height = height;
+		
+		this.rect.x = this.imageProvider.getScreenWidth();
+		this.rect.y = 0;
 		// this.state = state;
 
 		/*
