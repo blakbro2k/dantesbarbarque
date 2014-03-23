@@ -30,6 +30,8 @@ public class Button {
 	private float suffixX;
 	
 	private float suffixY;
+	
+	private boolean isDisabled = false;
 
 	private static long timePressed = 0;
 	
@@ -49,6 +51,18 @@ public class Button {
 		this.suffix = suffix;
 		this.margin  = margin;
 	}		
+	
+	public boolean isDisabled(){
+		return this.isDisabled;
+	}
+	
+	public void setDisabled(){
+		this.isDisabled = true;
+	}
+	
+	public void setEnabled(){
+		this.isDisabled = false;
+	}
 	
 	public void setPos(float x, float y) {
 		startX = x;
