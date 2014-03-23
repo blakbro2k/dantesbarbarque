@@ -1,23 +1,31 @@
 package net.asg.games.dante.screens;
 
-import net.asg.games.dante.DantesBarbarque;
+import net.asg.games.dante.DantesBarbarqueGame;
 import net.asg.games.dante.images.ImageProvider;
-
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+/**
+ * @author Blakbro2k
+ *
+ *	<code>CommonScreen</code> implements <code>Screen</code> and <code>InputProcessor</code>
+ *	from libgdx API.  This class has all methods implemented. All other screens will extend this class
+ */
 public class CommonScreen implements Screen, InputProcessor {
 
     protected SpriteBatch batch;
     
     protected OrthographicCamera camera;
     
-    protected DantesBarbarque game;
+    protected DantesBarbarqueGame game;
     
     protected ImageProvider imageProvider;
-      
+    
+	protected Sprite backgroundSprite;
+		   
 	@Override
 	public boolean keyDown(int keycode) {
 		// TODO Auto-generated method stub

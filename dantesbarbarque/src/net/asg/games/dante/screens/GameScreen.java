@@ -3,11 +3,9 @@ package net.asg.games.dante.screens;
 import java.util.Iterator;
 
 import net.asg.games.dante.DantesBarbarqueGame;
-import net.asg.games.dante.images.ImageProvider;
 import net.asg.games.dante.models.Bob;
 import net.asg.games.dante.models.Button;
 import net.asg.games.dante.sound.SoundManager;
-///import net.asg.games.dante.models.World;
 import net.asg.games.dante.view.MovingGameObjectFactory;
 import net.asg.games.dante.view.MovingGameObject;
 
@@ -16,7 +14,6 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
@@ -26,36 +23,28 @@ import com.badlogic.gdx.utils.TimeUtils;
 /**
  * @author Blakbro2k
  * 
- *         The main screen for the game.  This screen is where the main
- *         game is played.  All sprites and game objects are drawn here.
- *         This screen extends <code>CommonScreen</code> to minimize
- *         having to write unimplemented methods.
+ *         The main screen for the game. This screen is where the main game is
+ *         played. All sprites and game objects are drawn here. This screen
+ *         extends <code>CommonScreen</code> to minimize having to write
+ *         unimplemented methods.
  */
 public class GameScreen extends CommonScreen {
 
-	protected SpriteBatch batch;
-
-	protected OrthographicCamera camera;
-
-	protected DantesBarbarqueGame game;
-
 	protected Texture backgroundImage;
-	
-	protected Sprite backgroundSprite;
 
 	protected TextureRegion bobRegion;
 
 	protected Bob bob;
 
 	protected Button backButton;
-	
+
 	private float scrollTimer;
+	
+	private SoundManager soundManager;
 
 	// private World world;
 
 	// private WorldRenderer renderer;
-
-	private ImageProvider imageProvider;
 
 	private MovingGameObjectFactory movingGameObjectFactory;
 
@@ -65,7 +54,6 @@ public class GameScreen extends CommonScreen {
 
 	// private boolean isPressed;
 
-	private SoundManager soundManager;
 
 	/*
 	 * private Array<FallingObject> fallingObjects;
@@ -109,9 +97,6 @@ public class GameScreen extends CommonScreen {
 	 */
 	public GameScreen(DantesBarbarqueGame game) {
 		this.game = game;
-
-		// bob.getPosition().x = 10;
-		// bob.getPosition().y = 10;
 	}
 
 	public void show() {
@@ -121,7 +106,6 @@ public class GameScreen extends CommonScreen {
 
 		backgroundImage = imageProvider.getBackgroundFire();
 		backgroundSprite = imageProvider.getBackgroundSprite();
-		//backgroundSprite.setSize(256, 256);
 
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, imageProvider.getScreenWidth(),
@@ -129,19 +113,18 @@ public class GameScreen extends CommonScreen {
 
 		batch = new SpriteBatch();
 
-		movingGameObjectFactory = new MovingGameObjectFactory(imageProvider,soundManager);
+		movingGameObjectFactory = new MovingGameObjectFactory(imageProvider,
+				soundManager);
 
 		bobRegion = imageProvider.getBob();
-		bob = new Bob(imageProvider.getScreenHeight(), imageProvider.getScreenWidth(), 20, -1);
+		bob = new Bob(imageProvider.getScreenHeight(),
+				imageProvider.getScreenWidth(), 20, -1);
 
 		movingObjects = new Array<MovingGameObject>();
 		// movingObjects.add(movingGameObjectFactory.getFireball());
 
 		// backButton = new Button(imageProvider.getBack());
 		// backButton.setPos(10, 10);
-
-		// world = new World(imageProvider);
-		// renderer = new WorldRenderer(world,imageProvider);
 
 		Gdx.input.setInputProcessor(this);
 		Gdx.input.setCatchBackKey(true);
@@ -152,7 +135,6 @@ public class GameScreen extends CommonScreen {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
-	     //scrollTimer += delta * imageProvider.backgroundSpeed;
 		scrollTimer += delta * imageProvider.backgroundSpeed;
 	     if(scrollTimer>1.0f)
 	         scrollTimer = 0.0f;
@@ -180,12 +162,14 @@ public class GameScreen extends CommonScreen {
 		if (TimeUtils.millis() - lastGameObjTime > 860) {
 			
 			//spawnFireballMovingGameObject();
-			//spawnFireWallMovingGameObject();
-			spawnDynamicFireWallMovingGameObject();
+			spawnFireWallMovingGameObject();
+			//spawnDynamicFireWallMovingGameObject();
 		}
 
-		// Using Iterator, we update all objects on screen to move, and
-		// discard all objects off screen
+		/* Using Iterator, we update all objects on screen to move, and
+		 * discard all objects off screen
+		 * All hit detection happens here also
+		 */
 		Iterator<MovingGameObject> iter = movingObjects.iterator();
 		while (iter.hasNext()) {
 			MovingGameObject fo = iter.next();
@@ -193,31 +177,25 @@ public class GameScreen extends CommonScreen {
 			if (fo.isLeftOfScreen()) {
 				iter.remove();
 			}
-			/*
-			 * if(fo.isOverlapping(basket.getPosition())) { if (fo.getPoints() >
-			 * 0) { soundManager.playCatchSound(); } else {
-			 * soundManager.playMissSound(); } iter.remove();
-			 * st.score+=fo.getPoints(); if (fo.getState().getType() ==
-			 * FallingObjectType.SeasonalFruit) { float x =
-			 * basket.getPosition().x; float y = basket.getPosition().y + 48;
-			 * timesTwoAnimations.add( new TimesTwoAnimation(imageProvider, x,
-			 * y)); } }
-			 */
+			
+			 if(fo.isOverlapping(bob.getPosition())) { 
+				 System.out.println("!!!CRASH!!!");
+			 } 
 		}
 
 	}
 
 	private void spawnFireWallMovingGameObject() {
-	 movingObjects.add(movingGameObjectFactory.getFireWall());
-	soundManager.playfirewooshSound();
-	 lastGameObjTime = TimeUtils.millis();
-	 }
-	
+		movingObjects.add(movingGameObjectFactory.getFireWall());
+		soundManager.playfirewooshSound();
+		lastGameObjTime = TimeUtils.millis();
+	}
+
 	private void spawnDynamicFireWallMovingGameObject() {
-		 movingObjects.add(movingGameObjectFactory.getDynamicFireWall());
-			soundManager.playfirewooshSound();
-		 lastGameObjTime = TimeUtils.millis();
-		 }
+		movingObjects.add(movingGameObjectFactory.getDynamicFireWall());
+		soundManager.playfirewooshSound();
+		lastGameObjTime = TimeUtils.millis();
+	}
 
 	private void spawnFireballMovingGameObject() {
 		movingObjects.add(movingGameObjectFactory.getFireball());

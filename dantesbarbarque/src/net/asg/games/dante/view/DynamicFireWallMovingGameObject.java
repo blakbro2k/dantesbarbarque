@@ -22,7 +22,6 @@ public class DynamicFireWallMovingGameObject extends MovingGameObject {
 	public final int POSITION_SIX = 300;
 	private final int WALL_BASE_OFFSET = 450;
 	private int position;
-	private int holeSize;
 	private int wallSpeed = 250;
 	private boolean isClosingType;
 

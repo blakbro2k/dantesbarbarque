@@ -32,7 +32,7 @@ import com.badlogic.gdx.math.Rectangle;
  */
 public class MovingGameObject {
 
-	protected int moveSpeed = 750;
+	protected int moveSpeed = 550;
 
 	protected float animationPeriod = 0.3f;
 
