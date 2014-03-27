@@ -25,8 +25,6 @@ public class ImageProvider {
 	
 	private Sprite backgroundSprite;
 	
-	public float backgroundSpeed = 0.8f;
-	
 	public ImageProvider() {
 	}
 	
@@ -35,7 +33,7 @@ public class ImageProvider {
 		textAtlas  = new TextureAtlas(Gdx.files.internal("text_images.atlas"));
 		
 		backgroundFire = new Texture(Gdx.files.internal("Fire_bg.png"));
-		animatedFireBackground = new Texture(Gdx.files.internal("inferno.png"));
+		animatedFireBackground = new Texture(Gdx.files.internal("Fire_bg.png"));
 		animatedFireBackground.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
 		backgroundSprite = new Sprite(animatedFireBackground,0,0,this.getScreenWidth(),this.getScreenHeight());
 	}
