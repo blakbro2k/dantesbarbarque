@@ -33,6 +33,6 @@ public class Main {
 		cfg.width = 800;
 		cfg.height = 480;
 		
-		new LwjglApplication(new DantesBarbarqueGame(), cfg);
+		new LwjglApplication(new DantesBarbarqueGame(true), cfg);
 	}
 }
