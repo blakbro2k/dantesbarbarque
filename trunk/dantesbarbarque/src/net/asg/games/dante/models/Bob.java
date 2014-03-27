@@ -6,9 +6,9 @@ public class Bob {
 
 	    private int SPEED = 510;
 
-	    private int width = 72;
+	    private int width;
 	    
-	    private int height = 72;
+	    private int height;
 	    
 	    private int screenWidth;
 	    
@@ -16,10 +16,12 @@ public class Bob {
 	    
 		private Rectangle bounds;
 
-		public Bob(int screenHeight,int screenWidth, int posX, int posY) {
+		public Bob(int screenHeight,int screenWidth, int posX, int posY, int height, int width) {
 			bounds = new Rectangle();
 			this.screenWidth = screenWidth;
 			this.screenHeight = screenHeight;
+			this.width = width;
+			this.height = height;
 			
 	        if (posX < 0) {
 	        	bounds.x = screenWidth / 2 - width / 2;
@@ -84,6 +86,8 @@ public class Bob {
 	        
 	        keepOnScreen();
 	    }
-
-
+	    
+	    public void setBounds(int width, int height){
+	    	bounds.setSize(width, height);
+	    }
 }

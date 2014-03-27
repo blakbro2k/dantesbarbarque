@@ -21,6 +21,7 @@ import net.asg.games.dante.sound.SoundManager;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 
 /**
@@ -56,7 +57,7 @@ public class MovingGameObject {
 
 	protected Rectangle getPosition() {
 		return rect;
-	}
+	}	
 
 	public MovingGameObject(ImageProvider imageProvider,
 			TextureRegion[] textureRegions, SoundManager soundManager, int width, int height, boolean isHitboxActive) {
@@ -104,6 +105,10 @@ public class MovingGameObject {
 
 	public void draw(SpriteBatch batch) {
 		batch.draw(textureRegions[frame], rect.x, rect.y);
+	}
+	
+	public void drawDebug(ShapeRenderer debugRenderer){
+        debugRenderer.rect(rect.x, rect.y, rect.width, rect.height);
 	}
 
 	public boolean isOverlapping(Rectangle otherRect) {

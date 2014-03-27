@@ -20,7 +20,8 @@ public class MovingGameObjectFactory {
     public FireBallMovingGameObject getFireball() {
         TextureRegion [] textureRegions = new TextureRegion[1];
         textureRegions[0] = imageProvider.getFireball();
-
+        
+		soundManager.playflameBurstSound();
         return new FireBallMovingGameObject(imageProvider, textureRegions, soundManager, textureRegions[0].getRegionWidth(), textureRegions[0].getRegionHeight(), false);
     }
     
@@ -30,6 +31,7 @@ public class MovingGameObjectFactory {
         textureRegions[1] = imageProvider.getFireWall(2);
         textureRegions[2] = imageProvider.getFireWall(3);
         
+		soundManager.playfirewooshSound();
         return new FireWallMovingGameObject(imageProvider, textureRegions, soundManager, textureRegions[0].getRegionWidth(), textureRegions[0].getRegionHeight(), false);
     }
     
@@ -39,6 +41,7 @@ public class MovingGameObjectFactory {
         textureRegions[1] = imageProvider.getFireWall(2);
         textureRegions[2] = imageProvider.getFireWall(3);
 
+		soundManager.playfirewooshSound();
         return new DynamicFireWallMovingGameObject(imageProvider, textureRegions, soundManager, textureRegions[0].getRegionWidth(), textureRegions[0].getRegionHeight(), false);
     }
 }

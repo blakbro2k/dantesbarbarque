@@ -5,6 +5,7 @@ import net.asg.games.dante.sound.SoundManager;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 
@@ -55,6 +56,11 @@ public class FireWallMovingGameObject extends MovingGameObject {
 	public void draw(SpriteBatch batch) {
 		batch.draw(textureRegions[frame], rect.x, rect.y);
 		batch.draw(textureRegions[frame], lowerWall.x, lowerWall.y);
+	}
+	
+	public void drawDebug(ShapeRenderer debugRenderer){
+        debugRenderer.rect(rect.x, rect.y, rect.width, rect.height);
+        debugRenderer.rect(lowerWall.x, lowerWall.y, lowerWall.width, lowerWall.height);
 	}
 
 	public void setPosition(int position) {

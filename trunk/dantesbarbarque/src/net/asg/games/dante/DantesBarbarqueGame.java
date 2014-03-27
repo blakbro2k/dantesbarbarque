@@ -13,9 +13,14 @@ public class DantesBarbarqueGame extends Game{
 	private GameScreen gameScreen;
 	//private TextResources textResources;
 	private SoundManager soundManager;
+	public boolean isDebugOn = false;
 
 	public DantesBarbarqueGame(){
-		
+		this.isDebugOn = false;
+	}
+	
+	public DantesBarbarqueGame(boolean isDebugOn){
+		this.isDebugOn = isDebugOn;
 	}
 	
 	@Override

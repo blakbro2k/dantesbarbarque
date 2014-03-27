@@ -3,6 +3,7 @@ package net.asg.games.dante.screens;
 import java.util.Iterator;
 
 import net.asg.games.dante.DantesBarbarqueGame;
+import net.asg.games.dante.manager.LevelManager;
 import net.asg.games.dante.models.Bob;
 import net.asg.games.dante.models.Button;
 import net.asg.games.dante.sound.SoundManager;
@@ -11,11 +12,14 @@ import net.asg.games.dante.view.MovingGameObject;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -42,17 +46,11 @@ public class GameScreen extends CommonScreen {
 	
 	private SoundManager soundManager;
 
-	// private World world;
-
-	// private WorldRenderer renderer;
-
 	private MovingGameObjectFactory movingGameObjectFactory;
 
 	private Array<MovingGameObject> movingObjects;
 
-	private long lastGameObjTime = 0;
-
-	// private boolean isPressed;
+	private LevelManager levelManager;
 
 
 	/*
@@ -106,6 +104,8 @@ public class GameScreen extends CommonScreen {
 
 		backgroundImage = imageProvider.getBackgroundFire();
 		backgroundSprite = imageProvider.getBackgroundSprite();
+		
+		debugRenderer = new ShapeRenderer();
 
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, imageProvider.getScreenWidth(),
@@ -118,13 +118,15 @@ public class GameScreen extends CommonScreen {
 
 		bobRegion = imageProvider.getBob();
 		bob = new Bob(imageProvider.getScreenHeight(),
-				imageProvider.getScreenWidth(), 20, -1);
+				imageProvider.getScreenWidth(), 20, -1, bobRegion.getRegionHeight() - 20, bobRegion.getRegionWidth());
 
 		movingObjects = new Array<MovingGameObject>();
 		// movingObjects.add(movingGameObjectFactory.getFireball());
 
 		// backButton = new Button(imageProvider.getBack());
 		// backButton.setPos(10, 10);
+		
+		levelManager = new LevelManager(true);
 
 		Gdx.input.setInputProcessor(this);
 		Gdx.input.setCatchBackKey(true);
@@ -135,7 +137,7 @@ public class GameScreen extends CommonScreen {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
-		scrollTimer += delta * imageProvider.backgroundSpeed;
+		scrollTimer += delta * levelManager.getBackgroundSpeed();
 	     if(scrollTimer>1.0f)
 	         scrollTimer = 0.0f;
 	     
@@ -144,26 +146,40 @@ public class GameScreen extends CommonScreen {
 
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
-
+		
+		if(game.isDebugOn){
+		debugRenderer.setProjectionMatrix(camera.combined);
+		debugRenderer.begin(ShapeType.Line);
+	    debugRenderer.setColor(new Color(0, 1, 0, 1));
+		}
+		
 		batch.begin();
 		//batch.draw(backgroundImage, 0, 0);
 		backgroundSprite.draw(batch);
-
 		batch.draw(bobRegion, bob.getPosition().x, bob.getPosition().y);
+		if(game.isDebugOn){
+	        debugRenderer.rect(bob.getPosition().x, bob.getPosition().y, bob.getPosition().width, bob.getPosition().height);
+		}
 
 		for (MovingGameObject movingObject : movingObjects) {
 			movingObject.draw(batch);
+			if(game.isDebugOn){
+				movingObject.drawDebug(debugRenderer);
+			}
 		}
-
+		
 		batch.end();
-
+		
+		if(game.isDebugOn){
+        debugRenderer.end();
+		}
+		
 		processInput();
+		
+		//System.out.println(TimeUtils.millis());
 
-		if (TimeUtils.millis() - lastGameObjTime > 860) {
-			
-			//spawnFireballMovingGameObject();
-			spawnFireWallMovingGameObject();
-			//spawnDynamicFireWallMovingGameObject();
+		if (TimeUtils.millis() - levelManager.getLastGameObjectTime() > levelManager.getSpawnTime()) {
+			movingObjects.add(levelManager.getNextObject(movingGameObjectFactory));
 		}
 
 		/* Using Iterator, we update all objects on screen to move, and
@@ -179,28 +195,10 @@ public class GameScreen extends CommonScreen {
 			}
 			
 			 if(fo.isOverlapping(bob.getPosition())) { 
-				 System.out.println("!!!CRASH!!!");
+				 System.out.println("!!!CRASH!!!\n\n");
 			 } 
 		}
 
-	}
-
-	private void spawnFireWallMovingGameObject() {
-		movingObjects.add(movingGameObjectFactory.getFireWall());
-		soundManager.playfirewooshSound();
-		lastGameObjTime = TimeUtils.millis();
-	}
-
-	private void spawnDynamicFireWallMovingGameObject() {
-		movingObjects.add(movingGameObjectFactory.getDynamicFireWall());
-		soundManager.playfirewooshSound();
-		lastGameObjTime = TimeUtils.millis();
-	}
-
-	private void spawnFireballMovingGameObject() {
-		movingObjects.add(movingGameObjectFactory.getFireball());
-		soundManager.playflameBurstSound();
-		lastGameObjTime = TimeUtils.millis();
 	}
 
 	private void processInput() {
