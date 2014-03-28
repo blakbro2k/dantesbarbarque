@@ -38,7 +38,7 @@ public class DynamicFireWallMovingGameObject extends MovingGameObject {
 		this.rect.width = width;
 		this.rect.height = height;
 
-		position = MathUtils.random(1, 3) * 50;
+		position = MathUtils.random(0, 3) * 50;
 		// position = POSITION_THREE;
 
 		this.lowerWall = new Rectangle();
@@ -53,12 +53,9 @@ public class DynamicFireWallMovingGameObject extends MovingGameObject {
 
 		this.setAnimationSpeed(0.2f);
 
-		int close = MathUtils.random(0, 1);
-
-		if (close == 1) {
+		if (MathUtils.random(0, 1) == 0) {
 			setWallAsClosingType(true);
 		}
-		
 		//setWallAsClosingType(true);
 	}
 
