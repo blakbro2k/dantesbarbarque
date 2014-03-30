@@ -1,6 +1,6 @@
 package net.asg.dante;
 
-import net.asg.games.dante.DantesBarbarque;
+import net.asg.games.dante.DantesBarbarqueGame;
 import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
@@ -14,6 +14,6 @@ public class MainActivity extends AndroidApplication {
         AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
         cfg.useGL20 = false;
         
-        initialize(new DantesBarbarque(), cfg);
+        initialize(new DantesBarbarqueGame(), cfg);
     }
 }
