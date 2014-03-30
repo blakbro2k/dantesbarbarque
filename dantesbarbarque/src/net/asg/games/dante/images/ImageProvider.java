@@ -155,7 +155,12 @@ public class ImageProvider {
 
 	public TextureRegion getTimes2() {
 		return atlas.findRegion("x2");
-	}	
+	}
+	
+	public TextureRegion getGoal(int i) {
+		return atlas.findRegion("goalpole");
+	}
+
 
 	/**
 	 * Text images
@@ -228,6 +233,5 @@ public class ImageProvider {
 	public TextureRegion getSuccessLabel() {
 		return textAtlas.findRegion("Success");
 	}
-
 
 }

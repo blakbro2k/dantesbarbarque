@@ -17,7 +17,6 @@ public class FireBallMovingGameObject extends MovingGameObject{
 		super(imageProvider, textureRegions, soundManager, width, height, isHitboxActive);
 		this.setMoveSpeed(820);
 
-		rect.x = this.imageProvider.getScreenWidth();
 		rect.y = MathUtils.random(0, imageProvider.getScreenHeight() - height);
 	}	
 }

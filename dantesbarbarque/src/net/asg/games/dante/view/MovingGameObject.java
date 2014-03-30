@@ -16,6 +16,7 @@ package net.asg.games.dante.view;
  * limitations under the License.
  ******************************************************************************/
 
+import net.asg.games.dante.DantesBarbarqueGame.LevelState;
 import net.asg.games.dante.images.ImageProvider;
 import net.asg.games.dante.sound.SoundManager;
 
@@ -54,6 +55,8 @@ public class MovingGameObject {
 	protected ImageProvider imageProvider;
 	
 	protected SoundManager soundManager;
+	
+	public boolean isCollided = false;
 
 	protected Rectangle getPosition() {
 		return rect;
@@ -74,6 +77,7 @@ public class MovingGameObject {
 		
 		this.rect.x = this.imageProvider.getScreenWidth();
 		this.rect.y = 0;
+		
 		// this.state = state;
 
 		/*
@@ -122,11 +126,17 @@ public class MovingGameObject {
 	public void setHitboxActive(boolean bool) {
 		isHitboxActive = bool;
 	}
+	
 	public void setMoveSpeed(int moveSpeed){
 		this.moveSpeed = moveSpeed;
 	}
 	
 	public void setAnimationSpeed(float f){
 		this.animationPeriod = f;
+	}
+	
+	public LevelState doCollision(float delta){
+		 System.out.println("!!!CRASH!!!\n\n");
+		return null;
 	}
 }
