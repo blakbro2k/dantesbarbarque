@@ -43,7 +43,7 @@ public class GameScreen extends CommonScreen {
 	protected Button backButton;
 
 	private float scrollTimer;
-	
+
 	private SoundManager soundManager;
 
 	private MovingGameObjectFactory movingGameObjectFactory;
@@ -51,7 +51,6 @@ public class GameScreen extends CommonScreen {
 	private Array<MovingGameObject> movingObjects;
 
 	private LevelManager levelManager;
-
 
 	/*
 	 * private Array<FallingObject> fallingObjects;
@@ -104,7 +103,7 @@ public class GameScreen extends CommonScreen {
 
 		backgroundImage = imageProvider.getBackgroundFire();
 		backgroundSprite = imageProvider.getBackgroundSprite();
-		
+
 		debugRenderer = new ShapeRenderer();
 
 		camera = new OrthographicCamera();
@@ -118,14 +117,15 @@ public class GameScreen extends CommonScreen {
 
 		bobRegion = imageProvider.getBob();
 		bob = new Bob(imageProvider.getScreenHeight(),
-				imageProvider.getScreenWidth(), 20, -1, bobRegion.getRegionHeight() - 20, bobRegion.getRegionWidth());
+				imageProvider.getScreenWidth(), 20, -1,
+				bobRegion.getRegionHeight() - 20, bobRegion.getRegionWidth());
 
 		movingObjects = new Array<MovingGameObject>();
 		// movingObjects.add(movingGameObjectFactory.getFireball());
 
 		// backButton = new Button(imageProvider.getBack());
 		// backButton.setPos(10, 10);
-		
+
 		levelManager = new LevelManager(true);
 
 		Gdx.input.setInputProcessor(this);
@@ -136,67 +136,78 @@ public class GameScreen extends CommonScreen {
 	public void render(float delta) {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		
+
 		scrollTimer += delta * levelManager.getBackgroundSpeed();
-	     if(scrollTimer>1.0f)
-	         scrollTimer = 0.0f;
-	     
-	    backgroundSprite.setU(scrollTimer);
-	    backgroundSprite.setU2(scrollTimer+1);
+		if (scrollTimer > 1.0f)
+			scrollTimer = 0.0f;
+
+		backgroundSprite.setU(scrollTimer);
+		backgroundSprite.setU2(scrollTimer + 1);
 
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
-		
-		if(game.isDebugOn){
-		debugRenderer.setProjectionMatrix(camera.combined);
-		debugRenderer.begin(ShapeType.Line);
-	    debugRenderer.setColor(new Color(0, 1, 0, 1));
+
+		if (game.isDebugOn) {
+			debugRenderer.setProjectionMatrix(camera.combined);
+			debugRenderer.begin(ShapeType.Line);
+			debugRenderer.setColor(new Color(0, 1, 0, 1));
 		}
-		
+
 		batch.begin();
-		//batch.draw(backgroundImage, 0, 0);
+		// batch.draw(backgroundImage, 0, 0);
 		backgroundSprite.draw(batch);
 		batch.draw(bobRegion, bob.getPosition().x, bob.getPosition().y);
-		if(game.isDebugOn){
-	        debugRenderer.rect(bob.getPosition().x, bob.getPosition().y, bob.getPosition().width, bob.getPosition().height);
+		if (game.isDebugOn) {
+			debugRenderer.rect(bob.getPosition().x, bob.getPosition().y,
+					bob.getPosition().width, bob.getPosition().height);
 		}
 
 		for (MovingGameObject movingObject : movingObjects) {
 			movingObject.draw(batch);
-			if(game.isDebugOn){
+			if (game.isDebugOn) {
 				movingObject.drawDebug(debugRenderer);
 			}
+
+			if (movingObject.isCollided) {
+				levelManager.doLevelTransition(movingObject
+						.doCollision(Gdx.graphics.getDeltaTime()));
+			}
 		}
-		
+
 		batch.end();
-		
-		if(game.isDebugOn){
-        debugRenderer.end();
+
+		if (game.isDebugOn) {
+			debugRenderer.end();
 		}
-		
+
 		processInput();
-		
-		//System.out.println(TimeUtils.millis());
 
-		if (TimeUtils.millis() - levelManager.getLastGameObjectTime() > levelManager.getSpawnTime()) {
-			movingObjects.add(levelManager.getNextObject(movingGameObjectFactory));
+		System.out.println(levelManager);
+		// bob.getPosition().y);
+
+		if (TimeUtils.millis() - levelManager.getLastGameObjectTime() > levelManager
+				.getSpawnTime()) {
+			movingObjects.add(levelManager
+					.getNextObject(movingGameObjectFactory));
 		}
 
-		/* Using Iterator, we update all objects on screen to move, and
-		 * discard all objects off screen
-		 * All hit detection happens here also
+		/*
+		 * Using Iterator, we update all objects on screen to move, and discard
+		 * all objects off screen All hit detection happens here also
 		 */
 		Iterator<MovingGameObject> iter = movingObjects.iterator();
 		while (iter.hasNext()) {
 			MovingGameObject fo = iter.next();
+
 			fo.moveLeft(Gdx.graphics.getDeltaTime());
+
 			if (fo.isLeftOfScreen()) {
 				iter.remove();
 			}
-			
-			 if(fo.isOverlapping(bob.getPosition())) { 
-				 System.out.println("!!!CRASH!!!\n\n");
-			 } 
+
+			if (fo.isOverlapping(bob.getPosition())) {
+				fo.isCollided = true;
+			}
 		}
 
 	}

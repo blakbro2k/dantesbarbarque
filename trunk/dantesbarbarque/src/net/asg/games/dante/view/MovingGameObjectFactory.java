@@ -10,6 +10,7 @@ public class MovingGameObjectFactory {
 
 	private ImageProvider imageProvider;
 	private SoundManager soundManager;
+	public boolean isHitboxActive = false;
 
 	public MovingGameObjectFactory(ImageProvider imageProvider, SoundManager soundManager){
         this.imageProvider = imageProvider;
@@ -22,7 +23,7 @@ public class MovingGameObjectFactory {
         textureRegions[0] = imageProvider.getFireball();
         
 		soundManager.playflameBurstSound();
-        return new FireBallMovingGameObject(imageProvider, textureRegions, soundManager, textureRegions[0].getRegionWidth(), textureRegions[0].getRegionHeight(), false);
+        return new FireBallMovingGameObject(imageProvider, textureRegions, soundManager, textureRegions[0].getRegionWidth(), textureRegions[0].getRegionHeight(), isHitboxActive);
     }
     
     public FireWallMovingGameObject getFireWall() {
@@ -32,7 +33,7 @@ public class MovingGameObjectFactory {
         textureRegions[2] = imageProvider.getFireWall(3);
         
 		soundManager.playfirewooshSound();
-        return new FireWallMovingGameObject(imageProvider, textureRegions, soundManager, textureRegions[0].getRegionWidth(), textureRegions[0].getRegionHeight(), false);
+        return new FireWallMovingGameObject(imageProvider, textureRegions, soundManager, textureRegions[0].getRegionWidth(), textureRegions[0].getRegionHeight(), isHitboxActive);
     }
     
     public DynamicFireWallMovingGameObject getDynamicFireWall() {
@@ -42,6 +43,13 @@ public class MovingGameObjectFactory {
         textureRegions[2] = imageProvider.getFireWall(3);
 
 		soundManager.playfirewooshSound();
-        return new DynamicFireWallMovingGameObject(imageProvider, textureRegions, soundManager, textureRegions[0].getRegionWidth(), textureRegions[0].getRegionHeight(), false);
+        return new DynamicFireWallMovingGameObject(imageProvider, textureRegions, soundManager, textureRegions[0].getRegionWidth(), textureRegions[0].getRegionHeight(), isHitboxActive);
     }
+
+	public GoalMovingGameObject getGoal() {
+        TextureRegion [] textureRegions = new TextureRegion[1];
+        textureRegions[0] = imageProvider.getGoal(1);
+
+        return new GoalMovingGameObject(imageProvider, textureRegions, soundManager, textureRegions[0].getRegionWidth(), textureRegions[0].getRegionHeight(), isHitboxActive);
+	}
 }

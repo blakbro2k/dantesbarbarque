@@ -15,7 +15,7 @@ public class SoundManager {
 
 	private Sound buzzSound;
 	
-	//private Sound bellSound;
+	private Sound goalHitSound;
 	
 	public void setSoundOn(boolean isSoundOn) {
 		this.isSoundOn = isSoundOn;
@@ -30,7 +30,7 @@ public class SoundManager {
         flameBurst = Gdx.audio.newSound(Gdx.files.internal("flameBurst2.ogg"));
         firewoosh = Gdx.audio.newSound(Gdx.files.internal("firewoosh.ogg"));
         buzzSound = Gdx.audio.newSound(Gdx.files.internal("buzz.ogg"));
-       // bellSound = Gdx.audio.newSound(Gdx.files.internal("bell.ogg"));
+        goalHitSound = Gdx.audio.newSound(Gdx.files.internal("goalHit.ogg"));
 	}
 	
 	public void dispose() {
@@ -38,7 +38,7 @@ public class SoundManager {
         flameBurst.dispose();
         firewoosh.dispose();
         buzzSound.dispose();
-        //bellSound.dispose();
+        goalHitSound.dispose();
 	}
 	
 	public void playCannonSound() {
@@ -64,11 +64,10 @@ public class SoundManager {
 			buzzSound.play();
 		}
 	}	
-	/*
-	public void playBellSound() {
-		if (isSoundOn) {
-			bellSound.play();
-		}
-	}	*/	
 	
+	public void playGoalHitSound() {
+		if (isSoundOn) {
+			goalHitSound.play();
+		}
+	}
 }

@@ -1,6 +1,6 @@
 package net.asg.games.dante.screens;
 
-import net.asg.games.dante.DantesBarbarque;
+import net.asg.games.dante.DantesBarbarqueGame;
 import net.asg.games.dante.images.ImageProvider;
 
 import com.badlogic.gdx.InputProcessor;
@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 
 public class MainMenuScreen implements Screen, InputProcessor {
 	
-	private DantesBarbarque game;
+	private DantesBarbarqueGame game;
 	
 	private OrthographicCamera camera;
 	
@@ -19,7 +19,7 @@ public class MainMenuScreen implements Screen, InputProcessor {
     private Button [] buttons;
     private Button helpButton;
 	
-	public MainMenuScreen(DantesBarbarque game) {
+	public MainMenuScreen(DantesBarbarqueGame game) {
 		// TODO Auto-generated constructor stub
     	super();
     	this.game = game;
