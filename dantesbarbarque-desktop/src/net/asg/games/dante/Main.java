@@ -19,6 +19,7 @@ public class Main {
 		boolean copyImages = false;	
 		
 		//Use TexturePacker to pack image files
+	
 		if (copyImages) {
 			Settings settings = new Settings();
 			settings.maxWidth = 1024;
