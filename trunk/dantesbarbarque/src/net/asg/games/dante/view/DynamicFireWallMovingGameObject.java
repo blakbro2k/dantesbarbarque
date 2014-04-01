@@ -31,15 +31,22 @@ public class DynamicFireWallMovingGameObject extends MovingGameObject {
 			int width, int height, boolean isHitboxActive) {
 		super(imageProvider, textureRegions, soundManager, width, height,
 				isHitboxActive);
-
-		isClosingType = false;
+		
+		if (MathUtils.random(0, 1) == 0) {
+			isClosingType = true;
+		} else {
+			isClosingType = false;
+		}
+		
+		//isClosingType = true;
+		
+		position = MathUtils.random(1, 4) * 50;
+		
+		//position = 5 * 50;
 
 		this.rect = new Rectangle();
 		this.rect.width = width;
 		this.rect.height = height;
-
-		position = MathUtils.random(0, 3) * 50;
-		// position = POSITION_THREE;
 
 		this.lowerWall = new Rectangle();
 		this.lowerWall.width = width;
@@ -52,11 +59,8 @@ public class DynamicFireWallMovingGameObject extends MovingGameObject {
 		this.lowerWall.y = WALL_BASE_OFFSET - rect.height - position;
 
 		this.setAnimationSpeed(0.2f);
-
-		if (MathUtils.random(0, 1) == 0) {
-			setWallAsClosingType(true);
-		}
-		//setWallAsClosingType(true);
+		
+		setWallAsClosingType(isClosingType);
 	}
 
 	public void draw(SpriteBatch batch) {
