@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 
 import net.asg.games.dante.DantesBarbarqueGame.LevelState;
+import net.asg.games.dante.view.FireBallMovingGameObject;
 import net.asg.games.dante.view.FireWallMovingGameObject;
 import net.asg.games.dante.view.GoalMovingGameObject;
 import net.asg.games.dante.view.MovingGameObject;
@@ -21,7 +22,7 @@ public class LevelManager {
 	private long roundEndTime;
 	private boolean isLevelStarted = false;
 	//private long roundStartTime;
-	private int roundDuration = 18000;
+	private int roundDuration = 21000;
 
 	// private
 
@@ -36,9 +37,8 @@ public class LevelManager {
 		if (isEndless()) {
 			roundCount = 0;
 			stageType = 0;
-			isLevelStarted = true;
 			objectSpeed = 0.8f;
-			spawnTime = 1800;
+			spawnTime = 2200;
 		}
 	}
 
@@ -76,7 +76,7 @@ public class LevelManager {
 		out += "objectSpeed = " + objectSpeed + "\n";
 		out += "lastGameObjTime = " + (TimeUtils.millis() - lastGameObjTime) + "\n";
 		out += "spawnTime = " + spawnTime + "\n";
-		out += "endless = " + endless + "\n";
+		out += "stageType = " + stageType + "\n";
 		out += "roundCount = " + roundCount + "\n";
 		return out;
 	}
@@ -88,7 +88,7 @@ public class LevelManager {
 		
 		if (TimeUtils.millis() > roundEndTime) {
 			stageType = 0;
-			spawnTime = 1800;
+			spawnTime = 2200;
 			isLevelStarted = false;
 		}
 
@@ -121,16 +121,16 @@ public class LevelManager {
 
 	private MovingGameObject processLevelDesign(MovingGameObject mObj) {
 		if (mObj instanceof FireWallMovingGameObject) {
-			if (roundCount > 2)
+			if (roundCount > 2 && (MathUtils.random(0, 2) == 1))
 			((FireWallMovingGameObject) mObj).isMobile = true;
 		}
 		
-		if (mObj instanceof GoalMovingGameObject) {
-
+		if (mObj instanceof FireBallMovingGameObject) {
+			if (roundCount > 6)
+			((FireBallMovingGameObject) mObj).setAnimationSpeed(500);
 		}
-		
 
-		
+			
 		return mObj;
 	}
 
