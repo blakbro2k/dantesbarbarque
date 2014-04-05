@@ -2,11 +2,11 @@ package net.asg.games.dante.screens;
 
 import net.asg.games.dante.DantesBarbarqueGame;
 import net.asg.games.dante.images.ImageProvider;
+import net.asg.games.dante.sound.SoundManager;
 
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
@@ -26,7 +26,7 @@ public class CommonScreen implements Screen, InputProcessor {
     
     protected ImageProvider imageProvider;
     
-	protected Sprite backgroundSprite;
+    protected SoundManager soundManager;
 	
 	protected ShapeRenderer debugRenderer;
 		   

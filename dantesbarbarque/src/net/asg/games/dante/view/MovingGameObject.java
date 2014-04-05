@@ -36,7 +36,7 @@ public class MovingGameObject {
 
 	protected int moveSpeed = 550;
 
-	protected float animationPeriod = 0.3f;
+	protected float animationPeriod = 0.10f;
 
 	protected int width;
 
@@ -90,8 +90,8 @@ public class MovingGameObject {
 		 */
 	}
 
-	public void moveLeft(float delta) {
-		rect.x -= moveSpeed * delta;
+	public void moveLeft(float delta, float speedBonus) {
+		rect.x -= moveSpeed * delta * speedBonus;
 		// state.setPosY((int) rect.y);
 		time += delta;
 		if (time > animationPeriod) {
@@ -136,7 +136,7 @@ public class MovingGameObject {
 	}
 	
 	public LevelState doCollision(float delta){
-		 System.out.println("!!!CRASH!!!\n\n");
+		 //System.out.println("!!!CRASH!!!\n\n");
 		return null;
 	}
 }

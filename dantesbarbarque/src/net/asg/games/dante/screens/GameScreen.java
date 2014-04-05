@@ -6,7 +6,6 @@ import net.asg.games.dante.DantesBarbarqueGame;
 import net.asg.games.dante.manager.LevelManager;
 import net.asg.games.dante.models.Bob;
 import net.asg.games.dante.models.Button;
-import net.asg.games.dante.sound.SoundManager;
 import net.asg.games.dante.view.MovingGameObjectFactory;
 import net.asg.games.dante.view.MovingGameObject;
 
@@ -16,6 +15,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -35,6 +35,12 @@ import com.badlogic.gdx.utils.TimeUtils;
 public class GameScreen extends CommonScreen {
 
 	protected Texture backgroundImage;
+	
+	protected Texture foregroundImage;
+	
+	protected Sprite backgroundSprite;
+	
+	protected Sprite foregroundSprite;
 
 	protected TextureRegion bobRegion;
 
@@ -42,9 +48,9 @@ public class GameScreen extends CommonScreen {
 
 	protected Button backButton;
 
-	private float scrollTimer;
-
-	private SoundManager soundManager;
+	private float bgScrollTimer;
+	
+	private float fgScrollTimer;
 
 	private MovingGameObjectFactory movingGameObjectFactory;
 
@@ -101,8 +107,11 @@ public class GameScreen extends CommonScreen {
 		soundManager = game.getSoundManager();
 		soundManager.setSoundOn(true);
 
-		backgroundImage = imageProvider.getBackgroundFire();
+		backgroundImage = imageProvider.getBackground();
 		backgroundSprite = imageProvider.getBackgroundSprite();
+		
+		foregroundImage = imageProvider.getForeground();
+		foregroundSprite = imageProvider.getForegroundSprite();
 
 		debugRenderer = new ShapeRenderer();
 
@@ -137,12 +146,19 @@ public class GameScreen extends CommonScreen {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
-		scrollTimer += delta * levelManager.getBackgroundSpeed();
-		if (scrollTimer > 1.0f)
-			scrollTimer = 0.0f;
+		bgScrollTimer += delta * levelManager.getBackgroundSpeed();
+		if (bgScrollTimer > 1.0f)
+			bgScrollTimer = 0.0f;
 
-		backgroundSprite.setU(scrollTimer);
-		backgroundSprite.setU2(scrollTimer + 1);
+		backgroundSprite.setU(bgScrollTimer);
+		backgroundSprite.setU2(bgScrollTimer + 1);
+		
+		fgScrollTimer += delta * levelManager.getForegroundSpeed();
+		if (fgScrollTimer > 1.0f)
+			fgScrollTimer = 0.0f;
+
+		foregroundSprite.setU(fgScrollTimer);
+		foregroundSprite.setU2(fgScrollTimer + 1);
 
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
@@ -156,6 +172,8 @@ public class GameScreen extends CommonScreen {
 		batch.begin();
 		// batch.draw(backgroundImage, 0, 0);
 		backgroundSprite.draw(batch);
+		foregroundSprite.draw(batch);
+		
 		batch.draw(bobRegion, bob.getPosition().x, bob.getPosition().y);
 		if (game.isDebugOn) {
 			debugRenderer.rect(bob.getPosition().x, bob.getPosition().y,
@@ -170,7 +188,7 @@ public class GameScreen extends CommonScreen {
 
 			if (movingObject.isCollided) {
 				levelManager.doLevelTransition(movingObject
-						.doCollision(Gdx.graphics.getDeltaTime()));
+						.doCollision(delta));
 			}
 		}
 
@@ -180,9 +198,9 @@ public class GameScreen extends CommonScreen {
 			debugRenderer.end();
 		}
 
-		processInput();
+		processInput(delta);
 
-		System.out.println(levelManager);
+		//System.out.println(levelManager);
 		// bob.getPosition().y);
 
 		if (TimeUtils.millis() - levelManager.getLastGameObjectTime() > levelManager
@@ -199,7 +217,7 @@ public class GameScreen extends CommonScreen {
 		while (iter.hasNext()) {
 			MovingGameObject fo = iter.next();
 
-			fo.moveLeft(Gdx.graphics.getDeltaTime());
+			fo.moveLeft(delta, levelManager.getSpeedBonus());
 
 			if (fo.isLeftOfScreen()) {
 				iter.remove();
@@ -212,8 +230,8 @@ public class GameScreen extends CommonScreen {
 
 	}
 
-	private void processInput() {
-		float delta = Gdx.graphics.getDeltaTime();
+	private void processInput(float delta) {
+		//float delta = Gdx.graphics.getDeltaTime();
 		if (Gdx.input.isKeyPressed(Keys.UP)) {
 			bob.moveY(1, delta);
 		}

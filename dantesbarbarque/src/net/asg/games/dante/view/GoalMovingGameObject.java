@@ -16,6 +16,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class GoalMovingGameObject extends MovingGameObject {
 	protected boolean isSoundTriggered = false;
 	private int velocityX = 1000;
+	private int moveSpeed = 800;
 	
 
 	// private int animationPattern[];
@@ -26,9 +27,8 @@ public class GoalMovingGameObject extends MovingGameObject {
 		super(imageProvider, textureRegions, soundManager, width, height,
 				isHitboxActive);
 	}
-
-	public void moveLeft(float delta) {
-		//velocityX += moveSpeed;
+	
+	public void moveLeft(float delta, float speedBonus) {
 		rect.x -= moveSpeed * delta;
 		// state.setPosY((int) rect.y);
 		time += delta;
