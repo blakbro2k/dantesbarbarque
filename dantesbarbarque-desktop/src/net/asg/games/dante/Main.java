@@ -16,7 +16,7 @@ import com.badlogic.gdx.tools.imagepacker.TexturePacker2.Settings;
 public class Main {
 	public static void main(String[] args) {
 		
-		boolean copyImages = false;	
+		boolean copyImages = false;
 		
 		//Use TexturePacker to pack image files
 	
@@ -34,6 +34,6 @@ public class Main {
 		cfg.width = 800;
 		cfg.height = 480;
 		
-		new LwjglApplication(new DantesBarbarqueGame(true), cfg);
+		new LwjglApplication(new DantesBarbarqueGame(false), cfg);
 	}
 }
