@@ -19,8 +19,14 @@ public class MovingGameObjectFactory {
 	}
 	
     public FireBallMovingGameObject getFireball() {
-        TextureRegion [] textureRegions = new TextureRegion[1];
-        textureRegions[0] = imageProvider.getFireball();
+        TextureRegion [] textureRegions = new TextureRegion[7];
+        textureRegions[0] = imageProvider.getFireBall(1);
+        textureRegions[1] = imageProvider.getFireBall(2);
+        textureRegions[2] = imageProvider.getFireBall(3);
+        textureRegions[3] = imageProvider.getFireBall(4);
+        textureRegions[4] = imageProvider.getFireBall(5);
+        textureRegions[5] = imageProvider.getFireBall(6);
+        textureRegions[6] = imageProvider.getFireBall(7);
         
 		soundManager.playflameBurstSound();
         return new FireBallMovingGameObject(imageProvider, textureRegions, soundManager, textureRegions[0].getRegionWidth(), textureRegions[0].getRegionHeight(), isHitboxActive);

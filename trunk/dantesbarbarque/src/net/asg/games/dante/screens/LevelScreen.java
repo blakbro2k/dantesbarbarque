@@ -27,11 +27,11 @@ public class LevelScreen extends CommonScreen{
 	@Override
 	public void show() {
         imageProvider = game.getImageProvider();
-        backgroundImage = imageProvider.getBackgroundFire();
-        TextureRegion buttonBg = imageProvider.getButton();
+        //backgroundImage = imageProvider.getBackgroundFire();
+        //TextureRegion buttonBg = imageProvider.getButton();
         
         buttons = new Button [2];
-        buttons[0] = new Button(buttonBg, imageProvider.getLevel());
+        //buttons[0] = new Button(buttonBg, imageProvider.getLevel());
 		
         camera = new OrthographicCamera();
         camera.setToOrtho(false, imageProvider.getScreenWidth(), imageProvider.getScreenHeight());

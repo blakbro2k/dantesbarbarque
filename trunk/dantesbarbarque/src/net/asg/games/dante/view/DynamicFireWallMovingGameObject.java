@@ -82,9 +82,9 @@ public class DynamicFireWallMovingGameObject extends MovingGameObject {
 		}
 	}
 
-	public void moveLeft(float delta) {
-		rect.x -= moveSpeed * delta;
-		lowerWall.x -= moveSpeed * delta;
+	public void moveLeft(float delta, float speedBonus) {
+		rect.x -= moveSpeed * delta + speedBonus;
+		lowerWall.x -= moveSpeed * delta + speedBonus;
 
 		if (!isClosingType) {
 			lowerWall.y -= wallSpeed * delta;

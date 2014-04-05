@@ -71,9 +71,9 @@ public class FireWallMovingGameObject extends MovingGameObject {
 		this.holeSize = holeSize;
 	}
 
-	public void moveLeft(float delta) {
-		rect.x -= moveSpeed * delta;
-		lowerWall.x -= moveSpeed * delta;
+	public void moveLeft(float delta, float speedBonus) {
+		rect.x -= moveSpeed * delta + speedBonus;
+		lowerWall.x -= moveSpeed * delta + speedBonus;
 
 		if (isMobile) {
 			switch (isMovingDown) {

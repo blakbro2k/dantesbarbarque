@@ -17,13 +17,20 @@ public class ImageProvider {
 	
 	private TextureAtlas textAtlas;
 	
-	private Texture backgroundFire;
+	private Texture background;
 	
-	private Texture sign;
+	private Texture foreground;
 	
-	private Texture animatedFireBackground;
+	//private Texture sign;
 	
-	private Sprite backgroundSprite;
+	private Texture animatedBackground;
+	
+	private Texture animatedForeground;
+	
+	private Sprite backGroundSprite;
+	
+	private Sprite foreGroundSprite;
+
 	
 	public ImageProvider() {
 	}
@@ -32,17 +39,23 @@ public class ImageProvider {
 		atlas = new TextureAtlas(Gdx.files.internal("game.atlas"));
 		textAtlas  = new TextureAtlas(Gdx.files.internal("text_images.atlas"));
 		
-		backgroundFire = new Texture(Gdx.files.internal("Fire_bg.png"));
-		animatedFireBackground = new Texture(Gdx.files.internal("Fire_bg.png"));
-		animatedFireBackground.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
-		backgroundSprite = new Sprite(animatedFireBackground,0,0,this.getScreenWidth(),this.getScreenHeight());
+		background = new Texture(Gdx.files.internal("background.png"));
+		foreground = new Texture(Gdx.files.internal("foreground.png"));
+		animatedBackground = new Texture(Gdx.files.internal("background.png"));
+		animatedBackground.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
+		animatedForeground = new Texture(Gdx.files.internal("foreground.png"));
+		animatedForeground.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
+		backGroundSprite = new Sprite(animatedBackground,0,0,this.getScreenWidth(),this.getScreenHeight());
+		foreGroundSprite = new Sprite(animatedForeground,0,0,this.getScreenWidth(),this.getScreenHeight());
 	}
 	
 	public void dispose() {
 		atlas.dispose();
 		textAtlas.dispose();
-		backgroundFire.dispose();
-		animatedFireBackground.dispose();
+		animatedBackground.dispose();
+		animatedForeground.dispose();
+		background.dispose();
+		foreground.dispose();
 	}
 	
 	public int getScreenWidth() {
@@ -53,14 +66,39 @@ public class ImageProvider {
 		return SCREEN_HEIGHT;
 	}
 	
-	public Texture getBackgroundFire() {
-		return backgroundFire;
+	public Texture getBackground() {
+		return background;
 	}
 	
 	public Sprite getBackgroundSprite(){
-		return backgroundSprite;
+		return backGroundSprite;
 	}
 	
+	public Texture getForeground() {
+		return foreground;
+	}
+	
+	public Sprite getForegroundSprite(){
+		return foreGroundSprite;
+	}
+	
+	public TextureRegion getFireBall(int frame) {
+		return atlas.findRegion("Fireball", frame);
+	}
+	
+	public TextureRegion getFireWall(int frame) {
+		return atlas.findRegion("firewall", frame);
+	}
+	
+	public TextureRegion getBob() {
+		return atlas.findRegion("bob");
+	}
+	
+	public TextureRegion getGoal(int i) {
+		return atlas.findRegion("goalpole");
+	}
+	
+	/*
 	public Texture getBoard() {
 		return sign;
 	}
@@ -89,9 +127,7 @@ public class ImageProvider {
 		return atlas.findRegion("number", number);
 	}
 
-	public TextureRegion getBob() {
-		return atlas.findRegion("bob");
-	}
+
 
 	public TextureRegion getClockBase() {
 		return atlas.findRegion("base");
@@ -116,13 +152,7 @@ public class ImageProvider {
 		return atlas.findRegion("sound_off");
 	}
 	
-	public TextureRegion getFireball() {
-		return atlas.findRegion("Fireball");
-	}
-	
-	public TextureRegion getFireWall(int frame) {
-		return atlas.findRegion("firewall", frame);
-	}
+
 	
 	/*public int getFruitsCount() {
 		return FruitType.fruitNames.length;
@@ -135,7 +165,7 @@ public class ImageProvider {
 	public TextureRegion getFruitBig(int fruitType) {
 		String name = FruitType.fruitNames[fruitType] + "2";
 		return atlas.findRegion(name);
-	}	*/
+	}	
 	
 	public TextureRegion getBadAppleFrame(int frame) {
 		return atlas.findRegion("bad_apple", frame);
@@ -157,15 +187,13 @@ public class ImageProvider {
 		return atlas.findRegion("x2");
 	}
 	
-	public TextureRegion getGoal(int i) {
-		return atlas.findRegion("goalpole");
-	}
+*/
 
 
 	/**
 	 * Text images
 	 */
-	
+	/*
 	public TextureRegion getLogo() {
 		return textAtlas.findRegion("CatchTheFruits");
 	}	
@@ -233,5 +261,6 @@ public class ImageProvider {
 	public TextureRegion getSuccessLabel() {
 		return textAtlas.findRegion("Success");
 	}
+	*/
 
 }
