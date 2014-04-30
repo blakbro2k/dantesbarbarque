@@ -5,19 +5,24 @@ import net.asg.games.dante.screens.GameScreen;
 import net.asg.games.dante.sound.SoundManager;
 
 import com.badlogic.gdx.Game;
+//import com.badlogic.gdx.graphics.FPSLogger;
 
 
 
 public class DantesBarbarqueGame extends Game{
+	
 	public enum LevelState{
 		GOALHIT, FIREBALLHIT, WALLHIT
 	}
 	
 	private ImageProvider imageProvider;
 	private GameScreen gameScreen;
+    //private GameState gameState;
+
 	//private TextResources textResources;
 	private SoundManager soundManager;
 	public boolean isDebugOn = false;
+	//private FPSLogger fpsLogger;
 
 	public DantesBarbarqueGame(){
 		this.isDebugOn = false;
@@ -35,15 +40,17 @@ public class DantesBarbarqueGame extends Game{
         soundManager = new SoundManager();
         soundManager.load();
         
+        //fpsLogger = new FPSLogger();
+        gameScreen = new GameScreen(this, null);
+
+        
         //menuScreen = new MenuScreen(this);
         //levelScreen = new LevelScreen(this);
-        gameScreen = new GameScreen(this);
-        
         gotoGameScreen();
 	}
 	
 	public void gotoGameScreen() {
-		setScreen(new GameScreen(this));
+		setScreen(new GameScreen(this, null));
 	}
 	
 	public ImageProvider getImageProvider() {
@@ -57,6 +64,10 @@ public class DantesBarbarqueGame extends Game{
 	public void gotoMenuScreen() {
 		//setScreen(new MenuScreen(this));
 	}
+	
+    //public GameState getGameState() {
+    //    return gameState;
+    //}
 	
 	//public TextResources getTextResources() {
 	//	return textResources;

@@ -15,7 +15,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  */
 public class GoalMovingGameObject extends MovingGameObject {
 	protected boolean isSoundTriggered = false;
-	private int velocityX = 1000;
+	private int velocityX = 1500;
 	private int moveSpeed = 800;
 	
 

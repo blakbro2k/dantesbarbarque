@@ -15,6 +15,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -58,48 +59,25 @@ public class GameScreen extends CommonScreen {
 
 	private LevelManager levelManager;
 
-	/*
-	 * private Array<FallingObject> fallingObjects;
-	 * 
-	 * private Array<TimesTwoAnimation> timesTwoAnimations;
-	 * 
-	 * private int gameDuration;
-	 * 
-	 * private Basket basket;
-	 * 
-	 * private AnalogueClock clock;
-	 * 
-	 * private NumberBoard numberBoard;
-	 * 
-	 * private StartGameMessage startGameMessage;
-	 * 
-	 * private EndGameMessage endGameMessage;
-	 * 
-	 * private Button backButton;
-	 * 
-	 * private boolean tictacSoundPlaying;
-	 * 
-	 * private boolean gameFinishedSoundPlaying;
-	 * 
-	 * private int fruitPeriod;
-	 * 
-	 * private int badObjectsPeriod;
-	 * 
-	 * private int bonusObjectsPeriod;
-	 * 
-	 * private TextureRegion pauseTexture;
-	 * 
-	 * private int pauseX;
-	 * 
-	 * private int pauseY;
-	 * 
-	 * private GameModel gameModel;
-	 * 
-	 * private int season; private int level; private int challenge; private int
-	 * goal;
-	 */
-	public GameScreen(DantesBarbarqueGame game) {
+    private GameScreenState st;
+
+	private String scoreName;
+
+	private BitmapFont bitmapFontName;
+
+	public GameScreen(DantesBarbarqueGame game, GameScreenState state) {
+		if (state != null) {
+			st = state;
+		}
+		else {
+			st = new GameScreenState();
+    		resetState();
+		}
 		this.game = game;
+	}
+	
+	private void resetState() {
+		st.score = 0;
 	}
 
 	public void show() {
@@ -130,6 +108,8 @@ public class GameScreen extends CommonScreen {
 				bobRegion.getRegionHeight() - 20, bobRegion.getRegionWidth());
 
 		movingObjects = new Array<MovingGameObject>();
+	    scoreName = "score: 0";
+	    bitmapFontName = new BitmapFont();
 		// movingObjects.add(movingGameObjectFactory.getFireball());
 
 		// backButton = new Button(imageProvider.getBack());
@@ -174,6 +154,9 @@ public class GameScreen extends CommonScreen {
 		backgroundSprite.draw(batch);
 		foregroundSprite.draw(batch);
 		
+		bitmapFontName.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+		bitmapFontName.draw(batch, scoreName, 10, imageProvider.getScreenHeight() - 15);
+		
 		batch.draw(bobRegion, bob.getPosition().x, bob.getPosition().y);
 		if (game.isDebugOn) {
 			debugRenderer.rect(bob.getPosition().x, bob.getPosition().y,
@@ -193,6 +176,9 @@ public class GameScreen extends CommonScreen {
 		}
 
 		batch.end();
+		
+		st.score += 1000 * delta;
+		scoreName = "score: " + st.score;
 
 		if (game.isDebugOn) {
 			debugRenderer.end();
