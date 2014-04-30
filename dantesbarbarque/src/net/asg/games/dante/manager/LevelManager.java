@@ -16,7 +16,7 @@ public class LevelManager {
 	// FIREBALL, STATIC_WALL, DYNAMIC_WALL,
 	private float backgroundSpeed = 0.3f;
 	private float foregroundSpeed = 0.7f;
-	private float speedBonus = 1.5f;
+	private float speedBonus = 1.3f;
 	private long lastGameObjTime = 0;
 	private int spawnTime;
 	private boolean endless;
