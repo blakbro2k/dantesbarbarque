@@ -17,6 +17,7 @@ public class Main {
 	public static void main(String[] args) {
 		
 		boolean copyImages = false;
+		boolean debugOn = false;
 		
 		//Use TexturePacker to pack image files
 	
@@ -34,6 +35,6 @@ public class Main {
 		cfg.width = 800;
 		cfg.height = 480;
 		
-		new LwjglApplication(new DantesBarbarqueGame(false), cfg);
+		new LwjglApplication(new DantesBarbarqueGame(debugOn), cfg);
 	}
 }
