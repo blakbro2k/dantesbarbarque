@@ -85,10 +85,10 @@ public class GameScreen extends CommonScreen {
 		soundManager = game.getSoundManager();
 		soundManager.setSoundOn(true);
 
-		backgroundImage = imageProvider.getBackground();
+		//backgroundImage = imageProvider.getBackground();
 		backgroundSprite = imageProvider.getBackgroundSprite();
 		
-		foregroundImage = imageProvider.getForeground();
+		//foregroundImage = imageProvider.getForeground();
 		foregroundSprite = imageProvider.getForegroundSprite();
 
 		debugRenderer = new ShapeRenderer();
@@ -233,13 +233,6 @@ public class GameScreen extends CommonScreen {
 
 		bob.moveX(Gdx.input.getAccelerometerX(), delta);
 		bob.moveY(Gdx.input.getAccelerometerY(), delta);
-	}
-
-	@Override
-	public void dispose() {
-		if (batch != null) {
-			batch.dispose();
-		}
 	}
 
 	@Override

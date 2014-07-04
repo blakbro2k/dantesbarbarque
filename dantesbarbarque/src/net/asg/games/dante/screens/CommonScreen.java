@@ -116,8 +116,9 @@ public class CommonScreen implements Screen, InputProcessor {
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-
+			if (batch != null) {
+				batch.dispose();
+			}
 	}
 
 }
