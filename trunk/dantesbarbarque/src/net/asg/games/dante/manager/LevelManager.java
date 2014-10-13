@@ -25,6 +25,7 @@ public class LevelManager {
 	private boolean isLevelStarted = false;
 	//private long roundStartTime;
 	private int roundDuration = 21000;
+	public int standardMovingBonus = 1000;
 
 	// private
 

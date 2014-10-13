@@ -136,7 +136,6 @@ public class MovingGameObject {
 	}
 	
 	public LevelState doCollision(float delta){
-		 //System.out.println("!!!CRASH!!!\n\n");
 		return null;
 	}
 }

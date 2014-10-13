@@ -78,7 +78,7 @@ public class ImageProvider {
 		return backGroundSprite;
 	}
 	
-	public Texture getGameover(){
+	public Texture getGameOverBoard(){
 		return gameover;
 	}
 	
@@ -201,15 +201,20 @@ public class ImageProvider {
 	/**
 	 * Text images
 	 */
+	
+	public TextureRegion getYouLoseLabel() {
+		return textAtlas.findRegion("YouLose");
+	}
+	
+	public TextureRegion getStartLabel() {
+		return textAtlas.findRegion("Start");
+	}
+	
 	/*
 	public TextureRegion getLogo() {
 		return textAtlas.findRegion("CatchTheFruits");
 	}	
-	
-	public TextureRegion getStart() {
-		return textAtlas.findRegion("Start");
-	}
-	
+		
 	public TextureRegion getKids() {
 		return textAtlas.findRegion("Kids");
 	}
@@ -261,14 +266,9 @@ public class ImageProvider {
 	public TextureRegion getPointsLabel() {
 		return textAtlas.findRegion("Points");
 	}	
-	
-	public TextureRegion getYouLoseLabel() {
-		return textAtlas.findRegion("YouLose");
-	}
-	
+		
 	public TextureRegion getSuccessLabel() {
 		return textAtlas.findRegion("Success");
 	}
 	*/
-
 }
