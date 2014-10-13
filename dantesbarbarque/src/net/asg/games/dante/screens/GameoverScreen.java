@@ -13,7 +13,7 @@ public class GameoverScreen extends CommonScreen{
 	public void show() {
 	imageProvider = game.getImageProvider();
 	
-	gameoverImage = imageProvider.getGameover();
+	gameoverImage = imageProvider.getGameOverBoard();
 	
 	camera = new OrthographicCamera();
 	camera.setToOrtho(false, imageProvider.getScreenWidth(),

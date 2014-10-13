@@ -125,7 +125,7 @@ public class GameScreen extends CommonScreen {
 	public void render(float delta) {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-
+		//set up the background and forground scroll properties
 		bgScrollTimer += delta * levelManager.getBackgroundSpeed();
 		if (bgScrollTimer > 1.0f)
 			bgScrollTimer = 0.0f;
@@ -150,8 +150,9 @@ public class GameScreen extends CommonScreen {
 		}
 
 		batch.begin();
-		// batch.draw(backgroundImage, 0, 0);
+		// Draw the Background
 		backgroundSprite.draw(batch);
+		// Draw the foreground
 		foregroundSprite.draw(batch);
 		
 		bitmapFontName.setColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -177,7 +178,7 @@ public class GameScreen extends CommonScreen {
 
 		batch.end();
 		
-		st.score += 1000 * delta;
+		st.score += levelManager.standardMovingBonus * delta;
 		scoreName = "score: " + st.score;
 
 		if (game.isDebugOn) {
