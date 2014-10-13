@@ -16,7 +16,7 @@ import com.badlogic.gdx.tools.imagepacker.TexturePacker2.Settings;
 public class Main {
 	public static void main(String[] args) {
 		
-		boolean copyImages = false;
+		boolean copyImages = true;
 		boolean debugOn = false;
 		
 		//Use TexturePacker to pack image files
