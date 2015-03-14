@@ -1,0 +1,1 @@
+This is a side scrolling adventure game with quick reflexes.  The player must avoid obstacles moving at a fast  pace.
