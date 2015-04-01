@@ -16,21 +16,21 @@ import com.badlogic.gdx.tools.imagepacker.TexturePacker2.Settings;
 public class Main {
 	public static void main(String[] args) {
 		
-		boolean copyImages = true;
-		boolean debugOn = false;
+		boolean copyImages = Constants.COPY_IMAGES;
+		boolean debugOn = Constants.DEBUG;
 		
 		//Use TexturePacker to pack image files
 	
 		if (copyImages) {
 			Settings settings = new Settings();
-			settings.maxWidth = 1024;
-			settings.maxHeight = 1024;
-			TexturePacker2.process(settings, "images", "../dantesbarbarque-android/assets", "game");
-			TexturePacker2.process(settings, "text-images", "../dantesbarbarque-android/assets", "text_images");
+			settings.maxWidth = Constants.MAX_WIDTH;
+			settings.maxHeight = Constants.MAX_HEIGHT;
+			TexturePacker2.process(settings, Constants.GAME_IMAGES_TEXTURE_FOLDER_NAME, "../" + Constants.ASSETS_PATH, Constants.GAME_IMAGES_TEXTURE_NAME);
+			TexturePacker2.process(settings, Constants.TEXT_IMAGES_TEXTURE_FOLDER_NAME, "../" + Constants.ASSETS_PATH, Constants.TEXT_IMAGES_TEXTURE_NAME);
 		}
 		
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
-		cfg.title = "Jerry's Inferno";
+		cfg.title = Constants.GAME_TITLE;
 		cfg.useGL20 = true;
 		cfg.width = 800;
 		cfg.height = 480;

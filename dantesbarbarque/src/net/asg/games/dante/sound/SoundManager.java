@@ -1,6 +1,7 @@
 package net.asg.games.dante.sound;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 
 public class SoundManager {
@@ -17,6 +18,12 @@ public class SoundManager {
 	
 	private Sound goalHitSound;
 	
+	private Music bgStart;
+
+	private Music bgLoop;
+	
+	private boolean bgStarted = false;
+	
 	public void setSoundOn(boolean isSoundOn) {
 		this.isSoundOn = isSoundOn;
 	}
@@ -31,6 +38,10 @@ public class SoundManager {
         firewoosh = Gdx.audio.newSound(Gdx.files.internal("firewoosh.ogg"));
         buzzSound = Gdx.audio.newSound(Gdx.files.internal("buzz.ogg"));
         goalHitSound = Gdx.audio.newSound(Gdx.files.internal("goalHit.ogg"));
+        bgStart = Gdx.audio.newMusic(Gdx.files.internal("btoad-start.ogg"));
+        bgLoop = Gdx.audio.newMusic(Gdx.files.internal("btoad-loop.ogg"));
+        bgStart.setLooping(false);
+        bgLoop.setLooping(true);
 	}
 	
 	public void dispose() {
@@ -39,6 +50,8 @@ public class SoundManager {
         firewoosh.dispose();
         buzzSound.dispose();
         goalHitSound.dispose();
+        bgStart.dispose();
+        bgLoop.dispose();
 	}
 	
 	public void playCannonSound() {
@@ -61,13 +74,29 @@ public class SoundManager {
 	
 	public void playBuzzSound() {
 		if (isSoundOn) {
-			buzzSound.play();
+	        long buzzSoundId = buzzSound.play();
+	        buzzSound.setVolume(buzzSoundId, 0.1f);
 		}
 	}	
 	
 	public void playGoalHitSound() {
 		if (isSoundOn) {
 			goalHitSound.play();
+		}
+	}
+	
+	public void playBgSound() {
+		if (isSoundOn) {
+			if (!bgStarted){
+			bgStart.play();
+			bgStart.setOnCompletionListener(new Music.OnCompletionListener() {
+		          @Override
+		          public void onCompletion(Music music) {
+		        	  bgLoop.play();
+		          }
+			});
+			bgStarted = true;
+			}
 		}
 	}
 }

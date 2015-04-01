@@ -84,6 +84,7 @@ public class GameScreen extends CommonScreen {
 		imageProvider = game.getImageProvider();
 		soundManager = game.getSoundManager();
 		soundManager.setSoundOn(true);
+		soundManager.playBgSound();
 
 		//backgroundImage = imageProvider.getBackground();
 		backgroundSprite = imageProvider.getBackgroundSprite();
