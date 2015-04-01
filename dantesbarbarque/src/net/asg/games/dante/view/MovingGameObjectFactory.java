@@ -1,5 +1,6 @@
 package net.asg.games.dante.view;
 
+import net.asg.games.dante.Constants;
 import net.asg.games.dante.images.ImageProvider;
 import net.asg.games.dante.sound.SoundManager;
 
@@ -10,7 +11,7 @@ public class MovingGameObjectFactory {
 
 	private ImageProvider imageProvider;
 	private SoundManager soundManager;
-	public boolean isHitboxActive = false;
+	public boolean isHitboxActive = Constants.NO_CLIP_MODE_OFF;
 
 	public MovingGameObjectFactory(ImageProvider imageProvider, SoundManager soundManager){
         this.imageProvider = imageProvider;

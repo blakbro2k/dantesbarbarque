@@ -172,8 +172,7 @@ public class GameScreen extends CommonScreen {
 			}
 
 			if (movingObject.isCollided) {
-				levelManager.doLevelTransition(movingObject
-						.doCollision(delta));
+				levelManager.doLevelTransition(movingObject.doCollision(delta));
 			}
 		}
 

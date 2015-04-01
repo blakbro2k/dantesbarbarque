@@ -1,6 +1,8 @@
 
 package net.asg.games.dante;
 
+import net.asg.games.dante.Constants;
+
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.tools.imagepacker.TexturePacker2;

@@ -3,6 +3,7 @@
  */
 package net.asg.games.dante.view;
 
+import net.asg.games.dante.Constants;
 import net.asg.games.dante.DantesBarbarqueGame.LevelState;
 import net.asg.games.dante.images.ImageProvider;
 import net.asg.games.dante.sound.SoundManager;
@@ -15,8 +16,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  */
 public class GoalMovingGameObject extends MovingGameObject {
 	protected boolean isSoundTriggered = false;
-	private int velocityX = 1500;
-	private int moveSpeed = 800;
+	private int velocityX = Constants.GOAL_OBJECT_X_VELOCITY;
+	private int moveSpeed = Constants.GOAL_OBJECT_MOVE_SPEED;
 	
 
 	// private int animationPattern[];
@@ -48,7 +49,7 @@ public class GoalMovingGameObject extends MovingGameObject {
 		}
 		
 		rect.y -= 1300 * delta;
-		rect.x += velocityX  * delta;
+		rect.x += velocityX * delta;
 		velocityX -= 1;
 		return LevelState.GOALHIT;
 	}

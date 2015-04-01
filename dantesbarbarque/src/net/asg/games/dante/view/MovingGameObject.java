@@ -16,6 +16,7 @@ package net.asg.games.dante.view;
  * limitations under the License.
  ******************************************************************************/
 
+import net.asg.games.dante.Constants;
 import net.asg.games.dante.DantesBarbarqueGame.LevelState;
 import net.asg.games.dante.images.ImageProvider;
 import net.asg.games.dante.sound.SoundManager;
@@ -34,9 +35,9 @@ import com.badlogic.gdx.math.Rectangle;
  */
 public class MovingGameObject {
 
-	protected int moveSpeed = 550;
+	protected int moveSpeed = Constants.OBJECT_MOVE_SPEED;
 
-	protected float animationPeriod = 0.10f;
+	protected float animationPeriod = Constants.DEFAULT_ANIMATION_PERIOD;
 
 	protected int width;
 

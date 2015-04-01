@@ -34,7 +34,7 @@ public enum MovingObjectType {
 	            case 3:
 	                return StaticWall;                
 	        }
-	        throw new ArrayIndexOutOfBoundsException("Wrong value");    
+	        throw new ArrayIndexOutOfBoundsException("invalid MovingObjectType in MovingObject class: " + value);    
 	    }
 	}
 

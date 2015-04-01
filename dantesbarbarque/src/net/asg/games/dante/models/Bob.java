@@ -1,10 +1,12 @@
 package net.asg.games.dante.models;
 
+import net.asg.games.dante.Constants;
+
 import com.badlogic.gdx.math.Rectangle;
 
 public class Bob {
 
-	    private int SPEED = 510;
+	    private int SPEED = Constants.BOB_MOVE_SPEED;
 
 	    private int width;
 	    

@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 
+import net.asg.games.dante.Constants;
 import net.asg.games.dante.DantesBarbarqueGame.LevelState;
 import net.asg.games.dante.view.FireBallMovingGameObject;
 import net.asg.games.dante.view.FireWallMovingGameObject;
@@ -14,9 +15,7 @@ public class LevelManager {
 	public int stageType;
 	private int lastStageType;
 	// FIREBALL, STATIC_WALL, DYNAMIC_WALL,
-	private float backgroundSpeed = 0.3f;
-	private float foregroundSpeed = 0.7f;
-	private float speedBonus = 1.3f;
+	private float gameSpeed = Constants.DEFAULT_GAME_SPEED;
 	private long lastGameObjTime = 0;
 	private int spawnTime;
 	private boolean endless;
@@ -24,14 +23,14 @@ public class LevelManager {
 	private long roundEndTime;
 	private boolean isLevelStarted = false;
 	//private long roundStartTime;
-	private int roundDuration = 21000;
+	//private int roundDuration = Constants.ROUND_TIME_DURATION;
 	public int standardMovingBonus = 1000;
 
 	// private
 
 	public LevelManager(boolean stageType) {
 		this.endless = stageType;
-		this.roundEndTime = TimeUtils.millis() + roundDuration; // set round
+		this.roundEndTime = TimeUtils.millis() + Constants.ROUND_TIME_DURATION; // set round
 		lastStageType = 0;											// length
 		init();
 	}
@@ -61,30 +60,19 @@ public class LevelManager {
 	}
 
 	public float getBackgroundSpeed() {
-		return backgroundSpeed * speedBonus;
+		return Constants.BACKGROUND_SPEED * gameSpeed;
 	}
 	
 	public float getForegroundSpeed() {
-		return foregroundSpeed * speedBonus;
+		return Constants.FOREGROUND_SPEED * gameSpeed;
 	}
 
 	public float getSpeedBonus() {
-		return speedBonus;
+		return gameSpeed;
 	}
 
 	public void nextRound() {
 		roundCount++;
-	}
-
-	public String toString() {
-		String out = "";
-		out += "backgroundSpeed = " + backgroundSpeed + "\n";
-		out += "objectSpeed = " + speedBonus + "\n";
-		out += "lastGameObjTime = " + (TimeUtils.millis() - lastGameObjTime) + "\n";
-		out += "spawnTime = " + spawnTime + "\n";
-		out += "stageType = " + stageType + "\n";
-		out += "roundCount = " + roundCount + "\n";
-		return out;
 	}
 
 	public MovingGameObject getNextObject(
@@ -140,7 +128,6 @@ public class LevelManager {
 	}
 
 	public void doLevelTransition(LevelState state) {
-		// TODO Auto-generated method stub
 		if (state == LevelState.GOALHIT && !isLevelStarted) {
 
 			Array <Integer>temp  = new Array<Integer>();
@@ -150,8 +137,8 @@ public class LevelManager {
 				}
 			}
 			stageType = temp.get(MathUtils.random(0, temp.size - 1));
-			//stageType = 1;
-			roundEndTime = TimeUtils.millis() + roundDuration;
+			//stageType = 3;
+			roundEndTime = TimeUtils.millis() + Constants.ROUND_TIME_DURATION;
 			roundCount ++;
 			isLevelStarted = true;
 		}

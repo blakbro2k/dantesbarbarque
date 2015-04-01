@@ -1,5 +1,6 @@
 package net.asg.games.dante.view;
 
+import net.asg.games.dante.Constants;
 import net.asg.games.dante.images.ImageProvider;
 import net.asg.games.dante.sound.SoundManager;
 
@@ -11,21 +12,12 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class FireWallMovingGameObject extends MovingGameObject {
 	protected Rectangle lowerWall;
-	public final int NORMAL_HOLE_SIZE = 125;
-	public final int MEDIUM_HOLE_SIZE = 145;
-	public final int LARGE_HOLE_SIZE = 165;
-	public final int POSITION_ONE = 0;
-	public final int POSITION_TWO = 50;
-	public final int POSITION_THREE = 150;
-	public final int POSITION_FOUR = 200;
-	public final int POSITION_FIVE = 250;
-	public final int POSITION_SIX = 300;
-	private final int WALL_BASE_OFFSET = 450;
+
 	private int position;
 	private int holeSize;
 	public boolean isMobile = false;
-	private int mobileSpeed = 200;
 	private int isMovingDown = 0;
+	protected int moveSpeed = Constants.WALL_OBJECT_MOVE_SPEED;
 
 	public FireWallMovingGameObject(ImageProvider imageProvider,
 			TextureRegion[] textureRegions, SoundManager soundManager,
@@ -38,17 +30,17 @@ public class FireWallMovingGameObject extends MovingGameObject {
 		this.rect.height = height;
 
 		position = MathUtils.random(0, 6) * 50;
-		holeSize = MEDIUM_HOLE_SIZE;
+		holeSize = Constants.MEDIUM_WALL_GAP_SIZE;
 
 		this.lowerWall = new Rectangle();
 		this.lowerWall.width = width;
 		this.lowerWall.height = height;
 
 		this.rect.x = this.imageProvider.getScreenWidth();
-		this.rect.y = WALL_BASE_OFFSET - position;
+		this.rect.y = Constants.WALL_BASE_OFFSET - position;
 
 		this.lowerWall.x = this.imageProvider.getScreenWidth();
-		this.lowerWall.y = WALL_BASE_OFFSET - rect.height - holeSize - position;
+		this.lowerWall.y = Constants.WALL_BASE_OFFSET - rect.height - holeSize - position;
 
 		this.setAnimationSpeed(0.1f);
 	}
@@ -72,20 +64,20 @@ public class FireWallMovingGameObject extends MovingGameObject {
 	}
 
 	public void moveLeft(float delta, float speedBonus) {
-		rect.x -= moveSpeed * delta + speedBonus;
-		lowerWall.x -= moveSpeed * delta + speedBonus;
+		rect.x -= moveSpeed * delta * speedBonus;
+		lowerWall.x -= moveSpeed * delta * speedBonus;
 
 		if (isMobile) {
 			switch (isMovingDown) {
 			case 0:
-				rect.y += mobileSpeed * delta;
-				lowerWall.y += mobileSpeed * delta;
+				rect.y += Constants.WALL_GAP_SPEED * delta;
+				lowerWall.y += Constants.WALL_GAP_SPEED * delta;
 				if (rect.y + 50 > this.imageProvider.getScreenHeight())
 					isMovingDown = 1;
 				break;
 			case 1:
-				rect.y -= mobileSpeed * delta;
-				lowerWall.y -= mobileSpeed * delta;
+				rect.y -= Constants.WALL_GAP_SPEED * delta;
+				lowerWall.y -= Constants.WALL_GAP_SPEED * delta;
 				if (lowerWall.y + lowerWall.height - 50 < 0)
 					isMovingDown = 0;
 				break;

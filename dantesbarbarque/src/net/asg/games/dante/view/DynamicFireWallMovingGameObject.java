@@ -1,5 +1,6 @@
 package net.asg.games.dante.view;
 
+import net.asg.games.dante.Constants;
 import net.asg.games.dante.images.ImageProvider;
 import net.asg.games.dante.sound.SoundManager;
 
@@ -12,19 +13,9 @@ import com.badlogic.gdx.math.Rectangle;
 public class DynamicFireWallMovingGameObject extends MovingGameObject {
 	protected Rectangle lowerWall;
 
-	public final int NORMAL_HOLE_SIZE = 100;
-	public final int MEDIUM_HOLE_SIZE = 150;
-	public final int LARGE_HOLE_SIZE = 200;
-	public final int POSITION_ONE = 0;
-	public final int POSITION_TWO = 50;
-	public final int POSITION_THREE = 150;
-	public final int POSITION_FOUR = 200;
-	public final int POSITION_FIVE = 250;
-	public final int POSITION_SIX = 300;
-	private final int WALL_BASE_OFFSET = 450;
 	private int position;
-	private int wallSpeed = 280; // speed of the wall closing or opeing
 	private boolean isClosingType;
+	protected int moveSpeed = Constants.WALL_OBJECT_MOVE_SPEED;
 
 	public DynamicFireWallMovingGameObject(ImageProvider imageProvider,
 			TextureRegion[] textureRegions, SoundManager soundManager,
@@ -39,7 +30,6 @@ public class DynamicFireWallMovingGameObject extends MovingGameObject {
 		}
 		
 		//isClosingType = true;
-		
 		position = MathUtils.random(1, 4) * 50;
 		
 		//position = 5 * 50;
@@ -53,12 +43,12 @@ public class DynamicFireWallMovingGameObject extends MovingGameObject {
 		this.lowerWall.height = height;
 
 		this.rect.x = this.imageProvider.getScreenWidth();
-		this.rect.y = WALL_BASE_OFFSET - position;
+		this.rect.y = Constants.WALL_BASE_OFFSET - position;
 
 		this.lowerWall.x = this.imageProvider.getScreenWidth();
-		this.lowerWall.y = WALL_BASE_OFFSET - rect.height - position;
+		this.lowerWall.y = Constants.WALL_BASE_OFFSET - rect.height - position;
 
-		this.setAnimationSpeed(0.2f);
+		//this.setAnimationSpeed(0.2f);
 		
 		setWallAsClosingType(isClosingType);
 	}
@@ -81,22 +71,22 @@ public class DynamicFireWallMovingGameObject extends MovingGameObject {
 			this.lowerWall.y = 0 - height - position;
 		}
 	}
-
+	
 	public void moveLeft(float delta, float speedBonus) {
-		rect.x -= moveSpeed * delta + speedBonus;
-		lowerWall.x -= moveSpeed * delta + speedBonus;
+		rect.x -= moveSpeed * delta * speedBonus;
+		lowerWall.x -= moveSpeed * delta * speedBonus;
 
 		if (!isClosingType) {
-			lowerWall.y -= wallSpeed * delta;
-			rect.y += wallSpeed * delta;
+			lowerWall.y -= Constants.WALL_GAP_SPEED * delta;
+			rect.y += Constants.WALL_GAP_SPEED * delta;
 			if (rect.y < imageProvider.getScreenHeight()
 					|| lowerWall.y + lowerWall.height > 0) {
 				soundManager.playBuzzSound();
 			}
 		} else {
 			if (rect.y > lowerWall.y + lowerWall.height) {
-				lowerWall.y += wallSpeed * delta;
-				rect.y -= wallSpeed * delta;
+				lowerWall.y += Constants.WALL_GAP_SPEED * delta;
+				rect.y -= Constants.WALL_GAP_SPEED * delta;
 				soundManager.playBuzzSound();
 			}
 		}
