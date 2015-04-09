@@ -4,8 +4,8 @@
 package net.asg.games.dante.view;
 
 import net.asg.games.dante.Constants;
-import net.asg.games.dante.DantesBarbarqueGame.LevelState;
 import net.asg.games.dante.images.ImageProvider;
+import net.asg.games.dante.screens.GameScreenState.LevelState;
 import net.asg.games.dante.sound.SoundManager;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;

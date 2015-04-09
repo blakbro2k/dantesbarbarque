@@ -7,17 +7,10 @@ import com.badlogic.gdx.utils.JsonValue;
 
 
 public abstract class MovingObjectState implements Serializable{
-    public static final int FIREBALL = 1;
-    public static final int FRUIT_IN_SEASON_POINTS = 2;
-    public static final int BONUS_OBJECT_POINTS = 3;
-    public static final int BAD_OBJECT_POINTS = -4;	
-	
     private MovingObjectType type;
     
     private int index;
-    
-    private int points;
-    
+     
     private int posX = -1;
     
     private int posY = -1;
@@ -55,7 +48,6 @@ public abstract class MovingObjectState implements Serializable{
 		json.writeValue("posX", posX);
 		json.writeValue("posY", posY);
 		json.writeValue("type", type.getValue());
-		json.writeValue("points", points);
 		json.writeValue("index", index);
 	}
 
@@ -63,7 +55,6 @@ public abstract class MovingObjectState implements Serializable{
 		posX = json.readValue("posX", Integer.class, jsonData);
 		posY = json.readValue("posY", Integer.class, jsonData);
 		index = json.readValue("index", Integer.class, jsonData);
-		points = json.readValue("points", Integer.class, jsonData);
 		int val = json.readValue("type", Integer.class, jsonData);
 		type = MovingObjectType.fromValue(val);
 	}

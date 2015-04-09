@@ -1,15 +1,15 @@
 package net.asg.games.dante.manager;
 
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.TimeUtils;
-
 import net.asg.games.dante.Constants;
-import net.asg.games.dante.DantesBarbarqueGame.LevelState;
+import net.asg.games.dante.screens.GameScreenState.LevelState;
 import net.asg.games.dante.view.FireBallMovingGameObject;
 import net.asg.games.dante.view.FireWallMovingGameObject;
 import net.asg.games.dante.view.MovingGameObject;
 import net.asg.games.dante.view.MovingGameObjectFactory;
+
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.TimeUtils;
 
 public class LevelManager {
 	public int stageType;

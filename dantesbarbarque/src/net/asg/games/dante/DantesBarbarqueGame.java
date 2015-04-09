@@ -10,11 +10,6 @@ import com.badlogic.gdx.Game;
 
 
 public class DantesBarbarqueGame extends Game{
-	
-	public enum LevelState{
-		GOALHIT, FIREBALLHIT, WALLHIT, ISPAUSED, GAMEOVER
-	}
-	
 	private ImageProvider imageProvider;
 	private GameScreen gameScreen;
     //private GameState gameState;

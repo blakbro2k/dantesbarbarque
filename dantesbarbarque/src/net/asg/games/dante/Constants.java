@@ -41,5 +41,5 @@ public class Constants {
 	public static final String GAME_IMAGES_TEXTURE_FOLDER_NAME = "images";
 	public static final String TEXT_IMAGES_TEXTURE_NAME = "text-images";
 	public static final String TEXT_IMAGES_TEXTURE_FOLDER_NAME = "text-images";
-
+	public static final String STATE_DATA_FILE = "data/gamestate-v2.json";
 }

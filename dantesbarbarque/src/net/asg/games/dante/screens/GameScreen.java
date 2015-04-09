@@ -78,6 +78,11 @@ public class GameScreen extends CommonScreen {
 	
 	private void resetState() {
 		st.score = 0;
+		st.roundCount = 0;
+		st.stageType = 0;
+		st.spawnTime = 2200;
+		st.isLevelStarted = false;
+		st.lastGameObjTime = 0;
 	}
 
 	public void show() {
@@ -204,7 +209,7 @@ public class GameScreen extends CommonScreen {
 		while (iter.hasNext()) {
 			MovingGameObject fo = iter.next();
 
-			fo.moveLeft(delta, levelManager.getSpeedBonus());
+			fo.moveLeft(delta, st.gameSpeed);
 
 			if (fo.isLeftOfScreen()) {
 				iter.remove();
