@@ -29,7 +29,6 @@ public class GameScreenState implements Serializable {
 	public int lastStageType;
 	public int standardMovingBonus = 1000;
 
-
     public boolean isPaused;
     public boolean isLevelStarted;
     public boolean isFinished;
@@ -38,7 +37,7 @@ public class GameScreenState implements Serializable {
 
 	public float gameSpeed = Constants.DEFAULT_GAME_SPEED;
 	
-	public long lastGameObjTime;
+	public long lastGameObjTime  = 0;
 	public long roundEndTime;
     
 	public Array<MovingObjectState> movingObjectStates;
@@ -46,6 +45,14 @@ public class GameScreenState implements Serializable {
     public GameScreenState() {
     	movingObjectStates = new Array<MovingObjectState>();
     }
+    
+	public float getBackgroundSpeed() {
+		return Constants.BACKGROUND_SPEED * gameSpeed;
+	}
+	
+	public float getForegroundSpeed() {
+		return Constants.FOREGROUND_SPEED * gameSpeed;
+	}
 	
 	@Override
 	public void write(Json json) {

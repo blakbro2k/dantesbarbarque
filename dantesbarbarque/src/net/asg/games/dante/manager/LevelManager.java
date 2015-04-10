@@ -14,8 +14,6 @@ import com.badlogic.gdx.utils.TimeUtils;
 public class LevelManager {
 	public int stageType;
 	private int lastStageType;
-	// FIREBALL, STATIC_WALL, DYNAMIC_WALL,
-	private float gameSpeed = Constants.DEFAULT_GAME_SPEED;
 	private long lastGameObjTime = 0;
 	private int spawnTime;
 	private boolean endless;
@@ -57,18 +55,6 @@ public class LevelManager {
 
 	public void setLastGameObjectTime(long lastGameObjTime) {
 		this.lastGameObjTime = lastGameObjTime;
-	}
-
-	public float getBackgroundSpeed() {
-		return Constants.BACKGROUND_SPEED * gameSpeed;
-	}
-	
-	public float getForegroundSpeed() {
-		return Constants.FOREGROUND_SPEED * gameSpeed;
-	}
-
-	public float getSpeedBonus() {
-		return gameSpeed;
 	}
 
 	public void nextRound() {

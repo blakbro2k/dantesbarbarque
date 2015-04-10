@@ -83,6 +83,8 @@ public class GameScreen extends CommonScreen {
 		st.spawnTime = 2200;
 		st.isLevelStarted = false;
 		st.lastGameObjTime = 0;
+		st.bobX = 20;
+		st.bobY = -1;
 	}
 
 	public void show() {
@@ -110,7 +112,7 @@ public class GameScreen extends CommonScreen {
 
 		bobRegion = imageProvider.getBob();
 		bob = new Bob(imageProvider.getScreenHeight(),
-				imageProvider.getScreenWidth(), 20, -1,
+				imageProvider.getScreenWidth(), st.bobX, st.bobY,
 				bobRegion.getRegionHeight() - 20, bobRegion.getRegionWidth());
 
 		movingObjects = new Array<MovingGameObject>();
@@ -132,14 +134,14 @@ public class GameScreen extends CommonScreen {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		//set up the background and forground scroll properties
-		bgScrollTimer += delta * levelManager.getBackgroundSpeed();
+		bgScrollTimer += delta * st.getBackgroundSpeed();
 		if (bgScrollTimer > 1.0f)
 			bgScrollTimer = 0.0f;
 
 		backgroundSprite.setU(bgScrollTimer);
 		backgroundSprite.setU2(bgScrollTimer + 1);
 		
-		fgScrollTimer += delta * levelManager.getForegroundSpeed();
+		fgScrollTimer += delta * st.getForegroundSpeed();
 		if (fgScrollTimer > 1.0f)
 			fgScrollTimer = 0.0f;
 
