@@ -32,7 +32,7 @@ public class GameScreenState implements Serializable {
 
     public boolean isPaused;
     public boolean isLevelStarted;
-    public boolean isFinished;
+    public boolean isDead;
 	public boolean isEndless;
 
 
@@ -72,7 +72,7 @@ public class GameScreenState implements Serializable {
 		lastGameObjTime = 0;
 		bobX = 20;
 		bobY = -1;
-		isFinished = false;
+		isDead = false;
 		roundEndTime = TimeUtils.millis() + Constants.ROUND_TIME_DURATION;
 	}
 	
@@ -88,7 +88,7 @@ public class GameScreenState implements Serializable {
 		json.writeValue("standardMovingBonus", standardMovingBonus);
 		json.writeValue("isPaused", isPaused);
 		json.writeValue("isLevelStarted", isLevelStarted);
-		json.writeValue("isFinished", isFinished);
+		json.writeValue("isDead", isDead);
 		json.writeValue("isEndless", isEndless);
 		json.writeValue("gameSpeed", gameSpeed);
 		json.writeValue("lastGameObjTime", lastGameObjTime);
@@ -115,7 +115,7 @@ public class GameScreenState implements Serializable {
 		standardMovingBonus = json.readValue("standardMovingBonus", Integer.class, jsonData);
 		isPaused = json.readValue("isPaused", Boolean.class, jsonData);
 		isLevelStarted = json.readValue("isLevelStarted", Boolean.class, jsonData);
-		isFinished = json.readValue("isFinished", Boolean.class, jsonData);
+		isDead = json.readValue("isDead", Boolean.class, jsonData);
 		isEndless = json.readValue("isEndless", Boolean.class, jsonData);
 		gameSpeed = json.readValue("gameSpeed", Long.class, jsonData);
 		lastGameObjTime = json.readValue("lastGameObjTime", Long.class, jsonData);
