@@ -16,6 +16,9 @@ public class Constants {
 	public static final int WALL_OBJECT_MOVE_SPEED = 750;
 	public static final int GOAL_OBJECT_X_VELOCITY = 1500;
 	public static final int ROUND_TIME_DURATION = 21000;
+	public static final int FIREBALL_SPAWN_TIME = 360;
+	public static final int DYNAMIC_FIREWALL_SPAWN_TIME = 1360;
+	public static final int FIREWALL_SPAWN_TIME = 1100;
 	
 	public static final int WALL_GAP_SPEED = 280;
 	public static final int NORMAL_WALL_GAP_SIZE = 100;

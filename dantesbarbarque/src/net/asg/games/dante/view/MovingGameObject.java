@@ -58,6 +58,8 @@ public class MovingGameObject {
 	protected SoundManager soundManager;
 	
 	public boolean isCollided = false;
+	
+	protected boolean isSoundTriggered = false;
 
 	protected Rectangle getPosition() {
 		return rect;
@@ -137,6 +139,11 @@ public class MovingGameObject {
 	}
 	
 	public LevelState doCollision(float delta){
-		return null;
+		if(!isSoundTriggered){
+			soundManager.playDeathSound();
+			isSoundTriggered = true;
+		}
+		
+		return LevelState.FIREBALLHIT;
 	}
 }

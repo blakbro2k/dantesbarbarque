@@ -71,22 +71,11 @@ public class GameScreen extends CommonScreen {
 		}
 		else {
 			st = new GameScreenState();
-    		resetState();
+			st.hardReset();
 		}
 		this.game = game;
 	}
 	
-	private void resetState() {
-		st.score = 0;
-		st.roundCount = 0;
-		st.stageType = 0;
-		st.spawnTime = 2200;
-		st.isLevelStarted = false;
-		st.lastGameObjTime = 0;
-		st.bobX = 20;
-		st.bobY = -1;
-	}
-
 	public void show() {
 		imageProvider = game.getImageProvider();
 		soundManager = game.getSoundManager();
@@ -179,13 +168,13 @@ public class GameScreen extends CommonScreen {
 			}
 
 			if (movingObject.isCollided) {
-				levelManager.doLevelTransition(movingObject.doCollision(delta));
+				levelManager.doLevelTransition(movingObject.doCollision(delta), st);
 			}
 		}
 
 		batch.end();
 		
-		st.score += levelManager.standardMovingBonus * delta;
+		st.score += st.standardMovingBonus * delta;
 		scoreName = "score: " + st.score;
 
 		if (game.isDebugOn) {
@@ -197,10 +186,8 @@ public class GameScreen extends CommonScreen {
 		//System.out.println(levelManager);
 		// bob.getPosition().y);
 
-		if (TimeUtils.millis() - levelManager.getLastGameObjectTime() > levelManager
-				.getSpawnTime()) {
-			movingObjects.add(levelManager
-					.getNextObject(movingGameObjectFactory));
+		if (TimeUtils.millis() - st.lastGameObjTime > st.spawnTime) {
+			movingObjects.add(levelManager.getNextObject(movingGameObjectFactory,st));
 		}
 
 		/*

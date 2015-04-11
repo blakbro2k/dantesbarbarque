@@ -1,7 +1,5 @@
 package net.asg.games.dante.sound;
 
-import net.asg.games.dante.manager.LevelManager;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -19,6 +17,8 @@ public class SoundManager {
 	private Sound buzzSound;
 	
 	private Sound goalHitSound;
+	
+	private Sound deathSound;
 	
 	private Music bgStart;
 
@@ -40,6 +40,7 @@ public class SoundManager {
         firewoosh = Gdx.audio.newSound(Gdx.files.internal("firewoosh.ogg"));
         buzzSound = Gdx.audio.newSound(Gdx.files.internal("buzz.ogg"));
         goalHitSound = Gdx.audio.newSound(Gdx.files.internal("goalHit.ogg"));
+        deathSound = Gdx.audio.newSound(Gdx.files.internal("death.ogg"));
         bgStart = Gdx.audio.newMusic(Gdx.files.internal("btoad-start.ogg"));
         bgLoop = Gdx.audio.newMusic(Gdx.files.internal("btoad-loop.ogg"));
         bgStart.setLooping(false);
@@ -54,6 +55,7 @@ public class SoundManager {
         goalHitSound.dispose();
         bgStart.dispose();
         bgLoop.dispose();
+        deathSound.dispose();
 	}
 	
 	public void playCannonSound() {
@@ -84,6 +86,12 @@ public class SoundManager {
 	public void playGoalHitSound() {
 		if (isSoundOn) {
 			goalHitSound.play();
+		}
+	}
+	
+	public void playDeathSound() {
+		if (isSoundOn) {
+			deathSound.play();
 		}
 	}
 	

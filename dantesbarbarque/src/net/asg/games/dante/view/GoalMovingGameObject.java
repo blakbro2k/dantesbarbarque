@@ -15,7 +15,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  * 
  */
 public class GoalMovingGameObject extends MovingGameObject {
-	protected boolean isSoundTriggered = false;
 	private int velocityX = Constants.GOAL_OBJECT_X_VELOCITY;
 	private int moveSpeed = Constants.GOAL_OBJECT_MOVE_SPEED;
 	
