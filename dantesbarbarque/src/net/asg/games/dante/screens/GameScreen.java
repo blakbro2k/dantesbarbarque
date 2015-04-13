@@ -1,5 +1,8 @@
 package net.asg.games.dante.screens;
 
+import gr.sullenart.games.fruitcatcher.view.FallingObject;
+import gr.sullenart.games.fruitcatcher.view.FallingObjectState;
+
 import java.util.Iterator;
 
 import net.asg.games.dante.DantesBarbarqueGame;
@@ -8,6 +11,8 @@ import net.asg.games.dante.models.Bob;
 import net.asg.games.dante.models.Button;
 import net.asg.games.dante.view.MovingGameObjectFactory;
 import net.asg.games.dante.view.MovingGameObject;
+import net.asg.games.dante.view.MovingGameObjectState;
+import net.asg.games.dante.view.MovingObjectState;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -65,6 +70,8 @@ public class GameScreen extends CommonScreen {
 
 	private BitmapFont bitmapFontName;
 
+	private Texture pauseScreen;
+
 	public GameScreen(DantesBarbarqueGame game, GameScreenState state) {
 		if (state != null) {
 			st = state;
@@ -72,6 +79,7 @@ public class GameScreen extends CommonScreen {
 		else {
 			st = new GameScreenState();
 			st.hardReset();
+			st.isPaused = false;
 		}
 		this.game = game;
 	}
@@ -107,12 +115,16 @@ public class GameScreen extends CommonScreen {
 		movingObjects = new Array<MovingGameObject>();
 	    scoreName = "score: 0";
 	    bitmapFontName = new BitmapFont();
+	    
+	    pauseScreen = imageProvider.getPauseScreen();
+
+        
 		// movingObjects.add(movingGameObjectFactory.getFireball());
 
 		// backButton = new Button(imageProvider.getBack());
 		// backButton.setPos(10, 10);
 
-		levelManager = new LevelManager(true);
+		levelManager = new LevelManager();
 
 		Gdx.input.setInputProcessor(this);
 		Gdx.input.setCatchBackKey(true);
@@ -171,6 +183,10 @@ public class GameScreen extends CommonScreen {
 				levelManager.doLevelTransition(movingObject.doCollision(delta), st);
 			}
 		}
+		
+        if (st.isPaused) {
+        	batch.draw(pauseScreen, 0, 0);
+        }
 
 		batch.end();
 		
@@ -183,8 +199,9 @@ public class GameScreen extends CommonScreen {
 
 		processInput(delta);
 
-		//System.out.println(levelManager);
-		// bob.getPosition().y);
+        if (st.isPaused) {
+        	return;
+        }
 
 		if (TimeUtils.millis() - st.lastGameObjTime > st.spawnTime) {
 			movingObjects.add(levelManager.getNextObject(movingGameObjectFactory,st));
@@ -229,6 +246,34 @@ public class GameScreen extends CommonScreen {
 		bob.moveX(Gdx.input.getAccelerometerX(), delta);
 		bob.moveY(Gdx.input.getAccelerometerY(), delta);
 	}
+	
+	@Override
+	public void pause() {
+		if (!st.isPaused && st.isLevelStarted) {
+			st.isPaused = true;
+			long pausedTime = TimeUtils.millis();
+			st.lastGameObjTime -= pausedTime;
+			st.roundEndTime -= pausedTime;
+			
+			st.movingObjectStates = new Array<MovingGameObjectState>();
+			for(MovingGameObject fo: movingObjects) {
+				st.movingObjectStates.add(fo.getState());
+			}
+			st.bobX = (int) bob.getPosition().x;
+			st.bobY = (int) bob.getPosition().y;
+		}
+		game.persist(st);
+	}
+	
+	@Override
+	public void resume() {
+		if (st.isPaused) {
+			st.isPaused = false;
+			long now = TimeUtils.millis();
+			st.lastGameObjTime += now;
+			st.roundEndTime += now;		
+		}
+	}
 
 	@Override
 	public boolean keyDown(int keycode) {
@@ -236,6 +281,9 @@ public class GameScreen extends CommonScreen {
 			Gdx.app.exit();
 			return true;
 		}
+        if(keycode == Keys.P) {
+        	pause();
+        }	
 		return false;
 	}
 

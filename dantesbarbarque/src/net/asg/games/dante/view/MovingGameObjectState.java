@@ -1,13 +1,15 @@
 package net.asg.games.dante.view;
 
 
+import net.asg.games.dante.models.MovingGameObjectType;
+
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.Json.Serializable;
 import com.badlogic.gdx.utils.JsonValue;
 
 
-public abstract class MovingObjectState implements Serializable{
-    private MovingObjectType type;
+public class MovingGameObjectState implements Serializable{
+    private MovingGameObjectType type;
     
     private int index;
      
@@ -15,8 +17,12 @@ public abstract class MovingObjectState implements Serializable{
     
     private int posY = -1;
 
-	public MovingObjectType getType() {
+	public MovingGameObjectType getType() {
 		return type;
+	}
+	
+	public void setType(MovingGameObjectType type) {
+		this.type = type;
 	}
 
 	public int getPosX() {
@@ -56,7 +62,7 @@ public abstract class MovingObjectState implements Serializable{
 		posY = json.readValue("posY", Integer.class, jsonData);
 		index = json.readValue("index", Integer.class, jsonData);
 		int val = json.readValue("type", Integer.class, jsonData);
-		type = MovingObjectType.fromValue(val);
+		type = MovingGameObjectType.fromValue(val);
 	}
 
 }

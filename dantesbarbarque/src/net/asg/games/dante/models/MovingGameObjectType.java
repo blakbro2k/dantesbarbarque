@@ -1,17 +1,17 @@
 /**
  * 
  */
-package net.asg.games.dante.view;
+package net.asg.games.dante.models;
 
 /**
  * @author Blakbro2k
  *
  */
-public enum MovingObjectType {
+public enum MovingGameObjectType {
     	Fireball(0),
-	    OpenWall(1),
-	    CloseWall(2),
-	    StaticWall(3);
+	    FireWall(1),
+	    DynamicWall(2),
+	    GoalWall(3);
 	    
 	    private final int value;
 	    
@@ -19,20 +19,20 @@ public enum MovingObjectType {
 	        return value;
 	    }
 	    
-	    private MovingObjectType(int value) {
+	    private MovingGameObjectType(int value) {
 	        this.value = value;
 	    }
 	    
-	    public static MovingObjectType fromValue(int value) {
+	    public static MovingGameObjectType fromValue(int value) {
 	        switch(value) {
 	            case 0:
 	                return Fireball;
 	            case 1:
-	                return OpenWall;
+	                return FireWall;
 	            case 2:
-	                return CloseWall;
+	                return DynamicWall;
 	            case 3:
-	                return StaticWall;                
+	                return GoalWall;                
 	        }
 	        throw new ArrayIndexOutOfBoundsException("invalid MovingObjectType in MovingObject class: " + value);    
 	    }

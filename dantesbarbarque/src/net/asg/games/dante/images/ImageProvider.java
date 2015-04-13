@@ -27,6 +27,8 @@ public class ImageProvider {
 	
 	private Texture animatedForeground;
 	
+	private Texture pauseScreen;
+	
 	private Sprite backGroundSprite;
 	
 	private Sprite foreGroundSprite;
@@ -43,6 +45,7 @@ public class ImageProvider {
 		
 		background = new Texture(Gdx.files.internal("background.png"));
 		foreground = new Texture(Gdx.files.internal("foreground.png"));
+		pauseScreen = new Texture(Gdx.files.internal("paused.png"));
 		gameover = new Texture(Gdx.files.internal("gameover.png"));
 		animatedBackground = new Texture(Gdx.files.internal("background.png"));
 		animatedBackground.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
@@ -60,6 +63,7 @@ public class ImageProvider {
 		background.dispose();
 		foreground.dispose();
 		gameover.dispose();
+		pauseScreen.dispose();
 	}
 	
 	public int getScreenWidth() {
@@ -88,6 +92,10 @@ public class ImageProvider {
 	
 	public Sprite getForegroundSprite(){
 		return foreGroundSprite;
+	}
+	
+	public Texture getPauseScreen(){
+		return pauseScreen;
 	}
 	
 	public TextureRegion getFireBall(int frame) {

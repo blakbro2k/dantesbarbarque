@@ -13,8 +13,6 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 
 public class LevelManager {
-	public LevelManager(boolean stageType) {
-	}
 
 	public MovingGameObject getNextObject(MovingGameObjectFactory movingGameObjectFactory,
 			GameScreenState st) {
