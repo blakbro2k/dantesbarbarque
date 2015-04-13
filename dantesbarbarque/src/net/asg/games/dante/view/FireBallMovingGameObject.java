@@ -13,8 +13,9 @@ import com.badlogic.gdx.math.MathUtils;
 public class FireBallMovingGameObject extends MovingGameObject{
 
 	public FireBallMovingGameObject(ImageProvider imageProvider,
-			TextureRegion[] textureRegions, SoundManager soundManager, int width, int height, boolean isHitboxActive) {
-		super(imageProvider, textureRegions, soundManager, width, height, isHitboxActive);
+			TextureRegion[] textureRegions, SoundManager soundManager, int width, int height,
+			boolean isHitboxActive, MovingGameObjectState state) {
+		super(imageProvider, textureRegions, soundManager, width, height, isHitboxActive, state);
 		this.setMoveSpeed(820);
 
 		rect.y = MathUtils.random(0, imageProvider.getScreenHeight() - height);

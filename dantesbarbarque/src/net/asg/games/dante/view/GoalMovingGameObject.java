@@ -23,14 +23,14 @@ public class GoalMovingGameObject extends MovingGameObject {
 
 	public GoalMovingGameObject(ImageProvider imageProvider,
 			TextureRegion[] textureRegions, SoundManager soundManager,
-			int width, int height, boolean isHitboxActive) {
+			int width, int height, boolean isHitboxActive, MovingGameObjectState state) {
 		super(imageProvider, textureRegions, soundManager, width, height,
-				isHitboxActive);
+				isHitboxActive, state);
 	}
 	
 	public void moveLeft(float delta, float speedBonus) {
 		rect.x -= moveSpeed * delta;
-		// state.setPosY((int) rect.y);
+		state.setPosX((int) rect.x);
 		time += delta;
 		if (time > animationPeriod) {
 			time -= animationPeriod;
@@ -49,6 +49,8 @@ public class GoalMovingGameObject extends MovingGameObject {
 		
 		rect.y -= 1300 * delta;
 		rect.x += velocityX * delta;
+		state.setPosX((int) rect.x);
+		state.setPosX((int) rect.y);
 		velocityX -= 1;
 		return LevelState.GOALHIT;
 	}

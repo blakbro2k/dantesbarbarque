@@ -61,12 +61,15 @@ public class MovingGameObject {
 	
 	protected boolean isSoundTriggered = false;
 
+	protected MovingGameObjectState state;
+
 	protected Rectangle getPosition() {
 		return rect;
 	}	
 
 	public MovingGameObject(ImageProvider imageProvider,
-			TextureRegion[] textureRegions, SoundManager soundManager, int width, int height, boolean isHitboxActive) {
+			TextureRegion[] textureRegions, SoundManager soundManager,
+			int width, int height, boolean isHitboxActive, MovingGameObjectState state) {
 		this.imageProvider = imageProvider;
 		this.soundManager = soundManager;
 		this.textureRegions = textureRegions;
@@ -81,21 +84,14 @@ public class MovingGameObject {
 		this.rect.x = this.imageProvider.getScreenWidth();
 		this.rect.y = 0;
 		
-		// this.state = state;
-
-		/*
-		 * if(state.getPosX() < 0 || state.getPosY() < 0) { rect.x =
-		 * MathUtils.random(0, imageProvider.getScreenWidth()-width); rect.y =
-		 * imageProvider.getScreenHeight(); } else { rect.x = state.getPosX();
-		 * rect.y = state.getPosY(); }
-		 * 
-		 * state.setPosX((int) rect.x); state.setPosY((int) rect.y);
-		 */
+		this.state = state;
+        state.setPosX((int) rect.x);
+        state.setPosY((int) rect.y);		
 	}
 
 	public void moveLeft(float delta, float speedBonus) {
 		rect.x -= moveSpeed * delta * speedBonus;
-		// state.setPosY((int) rect.y);
+		state.setPosY((int) rect.y);
 		time += delta;
 		if (time > animationPeriod) {
 			time -= animationPeriod;
@@ -145,5 +141,9 @@ public class MovingGameObject {
 		}
 		
 		return LevelState.FIREBALLHIT;
+	}
+
+	public MovingGameObjectState getState() {
+		return state;
 	}
 }

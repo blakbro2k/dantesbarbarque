@@ -19,9 +19,9 @@ public class DynamicFireWallMovingGameObject extends MovingGameObject {
 
 	public DynamicFireWallMovingGameObject(ImageProvider imageProvider,
 			TextureRegion[] textureRegions, SoundManager soundManager,
-			int width, int height, boolean isHitboxActive) {
+			int width, int height, boolean isHitboxActive, MovingGameObjectState state) {
 		super(imageProvider, textureRegions, soundManager, width, height,
-				isHitboxActive);
+				isHitboxActive, state);
 		
 		if (MathUtils.random(0, 1) == 0) {
 			isClosingType = true;

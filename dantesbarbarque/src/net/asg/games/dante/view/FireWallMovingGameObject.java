@@ -21,9 +21,9 @@ public class FireWallMovingGameObject extends MovingGameObject {
 
 	public FireWallMovingGameObject(ImageProvider imageProvider,
 			TextureRegion[] textureRegions, SoundManager soundManager,
-			int width, int height, boolean isHitboxActive) {
+			int width, int height, boolean isHitboxActive, MovingGameObjectState state) {
 		super(imageProvider, textureRegions, soundManager, width, height,
-				isHitboxActive);
+				isHitboxActive, state);
 
 		this.rect = new Rectangle();
 		this.rect.width = width;
@@ -82,6 +82,8 @@ public class FireWallMovingGameObject extends MovingGameObject {
 					isMovingDown = 0;
 				break;
 			}
+		state.setPosX((int) rect.x);
+		state.setPosY((int) rect.y);
 		}
 
 		// state.setPosY((int) rect.y);
