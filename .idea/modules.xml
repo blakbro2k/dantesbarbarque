@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/dantesbarbarque/dantesbarbarque.iml" filepath="$PROJECT_DIR$/dantesbarbarque/dantesbarbarque.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dantesbarbarque-android/dantesbarbarque-android.iml" filepath="$PROJECT_DIR$/dantesbarbarque-android/dantesbarbarque-android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dantesbarbarque-desktop/dantesbarbarque-desktop.iml" filepath="$PROJECT_DIR$/dantesbarbarque-desktop/dantesbarbarque-desktop.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dantesbarbarque-html/dantesbarbarque-html.iml" filepath="$PROJECT_DIR$/dantesbarbarque-html/dantesbarbarque-html.iml" />
+    </modules>
+  </component>
+</project>
+

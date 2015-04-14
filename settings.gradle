@@ -1,0 +1,4 @@
+include ':dantesbarbarque-desktop'
+include ':dantesbarbarque-html'
+include ':dantesbarbarque'
+include ':dantesbarbarque-android'

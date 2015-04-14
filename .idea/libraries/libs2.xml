@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="libs2">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dantesbarbarque-desktop/libs/gdx-backend-lwjgl-natives.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dantesbarbarque-desktop/libs/gdx-tools.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dantesbarbarque-desktop/libs/gdx-backend-lwjgl-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dantesbarbarque-desktop/libs/gdx-backend-lwjgl.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dantesbarbarque-desktop/libs/gdx-tools-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dantesbarbarque-desktop/libs/gdx-natives.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="libs1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dantesbarbarque-android/libs/gdx-backend-android-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dantesbarbarque-android/libs/gdx-backend-android.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dantesbarbarque-android/libs/GoogleAdMobAdsSdk-6.3.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
