@@ -54,11 +54,11 @@ public class MovingGameObject {
 	protected TextureRegion[] textureRegions;
 
 	protected ImageProvider imageProvider;
-	
+
 	protected SoundManager soundManager;
-	
+
 	public boolean isCollided = false;
-	
+
 	protected boolean isSoundTriggered = false;
 
 	protected MovingGameObjectState state;
@@ -76,17 +76,20 @@ public class MovingGameObject {
 		this.isHitboxActive = isHitboxActive;
 		this.height = height;
 		this.width = width;
-		
+
 		rect = new Rectangle();
 		rect.width = width;
 		rect.height = height;
-		
+
 		this.rect.x = this.imageProvider.getScreenWidth();
 		this.rect.y = 0;
-		
+
 		this.state = state;
-        state.setPosX((int) rect.x);
-        state.setPosY((int) rect.y);		
+		state.setPosX((int) rect.x);
+		state.setPosY((int) rect.y);
+		state.setCollided(isCollided);
+		state.setHitboxActive(isHitboxActive);
+		state.setSoundTriggered(isSoundTriggered);
 	}
 
 	public void moveLeft(float delta, float speedBonus) {
@@ -109,9 +112,9 @@ public class MovingGameObject {
 	public void draw(SpriteBatch batch) {
 		batch.draw(textureRegions[frame], rect.x, rect.y);
 	}
-	
+
 	public void drawDebug(ShapeRenderer debugRenderer){
-        debugRenderer.rect(rect.x, rect.y, rect.width, rect.height);
+		debugRenderer.rect(rect.x, rect.y, rect.width, rect.height);
 	}
 
 	public boolean isOverlapping(Rectangle otherRect) {
@@ -124,23 +127,27 @@ public class MovingGameObject {
 
 	public void setHitboxActive(boolean bool) {
 		isHitboxActive = bool;
+		state.setHitboxActive(bool);
 	}
-	
+
 	public void setMoveSpeed(int moveSpeed){
 		this.moveSpeed = moveSpeed;
 	}
-	
+
 	public void setAnimationSpeed(float f){
 		this.animationPeriod = f;
 	}
-	
+
 	public LevelState doCollision(float delta){
-		if(!isSoundTriggered){
-			soundManager.playDeathSound();
-			isSoundTriggered = true;
+		if(isHitboxActive){
+			if(!isSoundTriggered){
+				soundManager.playDeathSound();
+				isSoundTriggered = true;
+				state.setSoundTriggered(isSoundTriggered);
+			}
+			return LevelState.FIREBALLHIT;
 		}
-		
-		return LevelState.FIREBALLHIT;
+		return LevelState.NOLCLIP;
 	}
 
 	public MovingGameObjectState getState() {

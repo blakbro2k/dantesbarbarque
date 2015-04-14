@@ -16,6 +16,12 @@ public class MovingGameObjectState implements Serializable{
     private int posX = -1;
     
     private int posY = -1;
+    
+    private boolean isCollided;
+
+    private boolean isSoundTriggered;
+
+    private boolean isHitboxActive;
 
 	public MovingGameObjectType getType() {
 		return type;
@@ -55,6 +61,9 @@ public class MovingGameObjectState implements Serializable{
 		json.writeValue("posY", posY);
 		json.writeValue("type", type.getValue());
 		json.writeValue("index", index);
+		json.writeValue("isCollided", isCollided);
+		json.writeValue("isHitboxActive", isHitboxActive);
+		json.writeValue("isSoundTriggered", isSoundTriggered);
 	}
 
 	public void read(Json json, JsonValue jsonData) {
@@ -63,6 +72,21 @@ public class MovingGameObjectState implements Serializable{
 		index = json.readValue("index", Integer.class, jsonData);
 		int val = json.readValue("type", Integer.class, jsonData);
 		type = MovingGameObjectType.fromValue(val);
+		isCollided = json.readValue("isCollided", Boolean.class, jsonData);
+		isHitboxActive = json.readValue("isHitboxActive", Boolean.class, jsonData);
+		isSoundTriggered = json.readValue("isSoundTriggered", Boolean.class, jsonData);
+	}
+
+	public void setCollided(boolean isCollided) {
+		this.isCollided = isCollided;
+	}
+
+	public void setHitboxActive(boolean isHitboxActive) {
+		this.isHitboxActive = isHitboxActive;
+	}
+
+	public void setSoundTriggered(boolean isSoundTriggered) {
+		this.isSoundTriggered = isSoundTriggered;
 	}
 
 }

@@ -19,8 +19,8 @@ public class LevelManager {
 
 		MovingGameObject mObj = null;
 		
-		if (TimeUtils.millis() > st.roundEndTime && !st.isPaused) {
-			st.softReset();
+		if (TimeUtils.millis() > st.roundEndTime && !st.isPaused && !st.isDead) {
+			st.levelReset();
 		}
 
 		switch (st.stageType) {
@@ -64,19 +64,34 @@ public class LevelManager {
 	}
 
 	public void doLevelTransition(LevelState state, GameScreenState st) {
-		if (state == LevelState.GOALHIT && !st.isLevelStarted) {
-
-			Array <Integer>temp  = new Array<Integer>();
-			for(int x = 1; x < 4; x++){
-				if (x != st.lastStageType){
-					temp.add(x);
-				}
+		switch (state){
+		case FIREBALLHIT:
+			if (st.isLevelStarted) {
+				st.isDead = true;
 			}
-			st.stageType = temp.get(MathUtils.random(0, temp.size - 1));
-			//stageType = 3;
-			st.roundEndTime = TimeUtils.millis() + Constants.ROUND_TIME_DURATION;
-			st.roundCount ++;
-			st.isLevelStarted = true;
+			break;
+		case GOALHIT:
+			if (!st.isLevelStarted) {
+
+				Array <Integer>temp  = new Array<Integer>();
+				for(int x = 1; x < 4; x++){
+					if (x != st.lastStageType){
+						temp.add(x);
+					}
+				}
+				st.stageType = temp.get(MathUtils.random(0, temp.size - 1));
+				//stageType = 3;
+				st.roundEndTime = TimeUtils.millis() + Constants.ROUND_TIME_DURATION;
+				st.roundCount ++;
+				st.isLevelStarted = true;
+			}
+			break;
+		case WALLHIT:
+			break;
+		default:
+			break;
 		}
+		
+
 	}
 }

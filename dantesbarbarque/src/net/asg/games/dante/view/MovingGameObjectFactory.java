@@ -74,7 +74,7 @@ public class MovingGameObjectFactory {
 
 	public GoalMovingGameObject getGoal() {
         TextureRegion [] textureRegions = new TextureRegion[1];
-        textureRegions[0] = imageProvider.getGoal(1);
+        textureRegions[0] = imageProvider.getGoal();
         
 		MovingGameObjectState model = new MovingGameObjectState();
         model.setType(MovingGameObjectType.GoalWall);

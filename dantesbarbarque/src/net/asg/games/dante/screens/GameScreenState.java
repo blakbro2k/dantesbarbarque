@@ -18,7 +18,7 @@ import com.badlogic.gdx.utils.TimeUtils;
  */
 public class GameScreenState implements Serializable {
 	public enum LevelState{
-		GOALHIT, FIREBALLHIT, WALLHIT, NOTRUNNING, DYING, DEAD, RUNNING
+		GOALHIT, FIREBALLHIT, WALLHIT, DYING, DEAD, NOLCLIP
 	}
 	
 	public int score;
@@ -35,7 +35,7 @@ public class GameScreenState implements Serializable {
     public boolean isDead;
 	public boolean isEndless;
 
-	public LevelState gameState = LevelState.NOTRUNNING;
+	//public LevelState gameState = LevelState.NOTRUNNING;
 	
 	public float gameSpeed = Constants.DEFAULT_GAME_SPEED;
 	
@@ -56,12 +56,12 @@ public class GameScreenState implements Serializable {
 		return Constants.FOREGROUND_SPEED * gameSpeed;
 	}
 	
-	public void softReset(){
+	public void levelReset(){
 		lastStageType = stageType;
 		stageType = 0;
 		spawnTime = 2200;
 		isLevelStarted = false;
-		gameState = LevelState.RUNNING;
+		//gameState = LevelState.RUNNING;
 	}
 	
 	public void hardReset(){
@@ -76,7 +76,7 @@ public class GameScreenState implements Serializable {
 		bobY = -1;
 		isDead = false;
 		roundEndTime = TimeUtils.millis() + Constants.ROUND_TIME_DURATION;
-		gameState = LevelState.RUNNING;
+		//gameState = LevelState.RUNNING;
 	}
 	
 	@Override
@@ -141,7 +141,7 @@ public class GameScreenState implements Serializable {
 				"isLevelStarted: " + isLevelStarted + "\n" +
 				"isDead: " + isDead + "\n" +
 				"isEndless: " + isEndless + "\n" +
-				"gameState: " + gameState + "\n" +
+				//"gameState: " + gameState + "\n" +
 				"gameSpeed: " + gameSpeed + "\n" +
 				"lastGameObjTime: " + lastGameObjTime + "\n" +
 				"roundEndTime: " + roundEndTime + "\n" +

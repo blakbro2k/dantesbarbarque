@@ -3,14 +3,15 @@ package net.asg.games.dante;
 public class Constants {
 
 	public static final boolean COPY_IMAGES = false;
-	public static final boolean DEBUG = false;
-	public static final boolean NO_CLIP_MODE_OFF = false;
+	public static final boolean DEBUG = true;
+	public static final boolean NO_CLIP_MODE_OFF = true;
 	
 	public static final int MAX_WIDTH = 1024;
 	public static final int MAX_HEIGHT = 1024;
 	public static final int STARTING_SPAWNTIME = 2200;
 	//view constants
 	public static final int BOB_MOVE_SPEED = 510;
+	public static final int BOB_SPRITE_TOP_TRIM = 20;
 	public static final int OBJECT_MOVE_SPEED = 550;
 	public static final int GOAL_OBJECT_MOVE_SPEED = 800;
 	public static final int WALL_OBJECT_MOVE_SPEED = 750;

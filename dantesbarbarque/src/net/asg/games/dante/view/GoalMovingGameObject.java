@@ -45,6 +45,7 @@ public class GoalMovingGameObject extends MovingGameObject {
 		if(!isSoundTriggered){
 			soundManager.playGoalHitSound();
 			isSoundTriggered = true;
+			state.setSoundTriggered(isSoundTriggered);
 		}
 		
 		rect.y -= 1300 * delta;

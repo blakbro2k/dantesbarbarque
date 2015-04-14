@@ -35,13 +35,13 @@ public class ImageProvider {
 
 	private Texture gameover;
 
-	
 	public ImageProvider() {
 	}
 	
 	public void load() {
 		atlas = new TextureAtlas(Gdx.files.internal("game.atlas"));
 		textAtlas  = new TextureAtlas(Gdx.files.internal("text_images.atlas"));
+		
 		
 		background = new Texture(Gdx.files.internal("background.png"));
 		foreground = new Texture(Gdx.files.internal("foreground.png"));
@@ -110,10 +110,17 @@ public class ImageProvider {
 		return atlas.findRegion("bob");
 	}
 	
-	public TextureRegion getGoal(int i) {
+	public TextureRegion getGoal() {
 		return atlas.findRegion("goalpole");
 	}
 	
+	public TextureRegion getResetButton() {
+		return atlas.findRegion("resetButton");
+	}
+	
+	public TextureRegion getHomeButton() {
+		return atlas.findRegion("homeButton");
+	}
 	/*
 	public Texture getBoard() {
 		return sign;

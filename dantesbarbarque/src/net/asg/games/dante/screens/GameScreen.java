@@ -6,6 +6,7 @@ import net.asg.games.dante.DantesBarbarqueGame;
 import net.asg.games.dante.manager.LevelManager;
 import net.asg.games.dante.models.Bob;
 import net.asg.games.dante.models.Button;
+import net.asg.games.dante.view.GameOverMessage;
 import net.asg.games.dante.view.MovingGameObject;
 import net.asg.games.dante.view.MovingGameObjectFactory;
 import net.asg.games.dante.view.MovingGameObjectState;
@@ -36,19 +37,17 @@ import com.badlogic.gdx.utils.TimeUtils;
  */
 public class GameScreen extends CommonScreen {
 
-	protected Texture backgroundImage;
+	private Sprite backgroundSprite;
 
-	protected Texture foregroundImage;
+	private Sprite foregroundSprite;
 
-	protected Sprite backgroundSprite;
+	private TextureRegion bobRegion;
 
-	protected Sprite foregroundSprite;
+	private Bob bob;
 
-	protected TextureRegion bobRegion;
-
-	protected Bob bob;
-
-	protected Button backButton;
+	private Button resetButton;
+	
+	private Button homeButton;
 
 	private float bgScrollTimer;
 
@@ -67,6 +66,8 @@ public class GameScreen extends CommonScreen {
 	private BitmapFont bitmapFontName;
 
 	private Texture pauseScreen;
+	
+	private GameOverMessage gameOverMessage;
 
 	public GameScreen(DantesBarbarqueGame game, GameScreenState state) {
 		if (state != null) {
@@ -111,7 +112,13 @@ public class GameScreen extends CommonScreen {
 		bitmapFontName = new BitmapFont();
 
 		pauseScreen = imageProvider.getPauseScreen();
-
+		
+		homeButton = new Button(imageProvider.getHomeButton());
+		homeButton.setPos(imageProvider.getScreenWidth() / 2 + 20, imageProvider.getScreenHeight() / 2 - 60);
+		
+		resetButton = new Button(imageProvider.getResetButton());
+		resetButton.setPos(imageProvider.getScreenWidth() / 2 - 90, imageProvider.getScreenHeight() / 2 - 60);
+	
 		levelManager = new LevelManager();
 
 		Gdx.input.setInputProcessor(this);
@@ -178,6 +185,17 @@ public class GameScreen extends CommonScreen {
 				levelManager.doLevelTransition(movingObject.doCollision(delta), st);
 			}
 		}
+		
+		if (st.isDead){
+			//Gdx.app.log(this.toString(), "YOU ARE DEAD!!!!!!!");
+			//movingObjects.clear();
+        	if (gameOverMessage == null) {
+        		gameOverMessage = new GameOverMessage(imageProvider, st.score);
+        	}
+        	gameOverMessage.draw(batch);
+        	resetButton.draw(batch);
+        	homeButton.draw(batch);
+		}
 
 		if (st.isPaused) {
 			batch.draw(pauseScreen, 0, 0);
@@ -191,7 +209,7 @@ public class GameScreen extends CommonScreen {
 
 		processInput(delta);
 
-		if (st.isPaused) {
+		if (st.isPaused || st.isDead) {
 			return;
 		}
 
@@ -223,7 +241,7 @@ public class GameScreen extends CommonScreen {
 	}
 
 	private void processInput(float delta) {
-		if (st.isLevelStarted && !st.isPaused){
+		if (st.isLevelStarted && !st.isPaused && !st.isDead){
 			if (Gdx.input.isKeyPressed(Keys.UP)) {
 				bob.moveY(1, delta);
 			}
@@ -290,14 +308,29 @@ public class GameScreen extends CommonScreen {
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		if (st.isPaused)
+		if (st.isPaused && !st.isDead)
 			resume();
+		if (st.isDead){
+			Vector3 touchPos = new Vector3();
+	        touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
+	        camera.unproject(touchPos);    
+	        
+			if(homeButton.isPressed(touchPos)){
+				Gdx.app.exit();
+			}
+			if(resetButton.isPressed(touchPos)){
+				st.hardReset();
+				movingObjects.clear();
+				bob.setPositionX(st.bobX);
+				bob.setPositionY(st.bobY);
+			}
+		}
 		return true;
 	}
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		if(st.isLevelStarted && !st.isPaused){
+		if(st.isLevelStarted && !st.isPaused && !st.isDead){
 			float delta = Gdx.graphics.getDeltaTime();
 
 			Vector3 touchPos = new Vector3();
@@ -318,7 +351,7 @@ public class GameScreen extends CommonScreen {
 
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		if(st.isLevelStarted && !st.isPaused){
+		if(st.isLevelStarted && !st.isPaused && !st.isDead){
 
 			float delta = Gdx.graphics.getDeltaTime();
 

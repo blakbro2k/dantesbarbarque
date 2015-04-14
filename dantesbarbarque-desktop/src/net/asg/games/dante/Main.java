@@ -11,7 +11,7 @@ import com.badlogic.gdx.tools.imagepacker.TexturePacker2.Settings;
 /**
  * @author Blakbro2k
  * 
- * Main Desktop f   ile for libgdx. Loads the application in a desktop window
+ * Main Desktop file for libgdx. Loads the application in a desktop window
  * with configuration.  It creates a new <code>LwjglApplication</code> by
  * passing a new <code>DantesBarbarqueGame</code>.
  */
