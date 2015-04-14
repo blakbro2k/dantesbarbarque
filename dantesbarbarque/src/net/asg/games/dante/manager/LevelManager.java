@@ -19,7 +19,7 @@ public class LevelManager {
 
 		MovingGameObject mObj = null;
 		
-		if (TimeUtils.millis() > st.roundEndTime) {
+		if (TimeUtils.millis() > st.roundEndTime && !st.isPaused) {
 			st.softReset();
 		}
 

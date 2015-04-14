@@ -12,15 +12,15 @@ import com.badlogic.gdx.utils.Json;
 public class StateManager {
 	public static class StateBundle {
 		public GameScreenState gameScreenState;
-		public GameLevelState GameLevelState;
+		//public GameLevelState GameLevelState;
 	}
 	
-	public void persist(GameScreenState gameScreenState, GameLevelState gameLevelState) {
+	public void persist(GameScreenState gameScreenState/*, GameLevelState gameLevelState*/) {
         FileHandle stateDataFile = Gdx.files.local(Constants.STATE_DATA_FILE);
         
         StateBundle stBundle = new StateBundle();
         stBundle.gameScreenState = gameScreenState;
-        stBundle.GameLevelState = gameLevelState;
+        //stBundle.GameLevelState = gameLevelState;
         
         Json json = new Json();
         String state = json.toJson(stBundle);

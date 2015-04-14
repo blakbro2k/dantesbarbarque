@@ -24,7 +24,13 @@ public class SoundManager {
 
 	private Music bgLoop;
 	
-	private boolean bgStarted = false;
+	private boolean isBGMStarted = false;
+
+	private boolean isPauseMusicOn = false;
+	
+	private boolean isBGMStartFinished = false;
+
+	private Music pauseMusic;
 	
 	public void setSoundOn(boolean isSoundOn) {
 		this.isSoundOn = isSoundOn;
@@ -43,8 +49,10 @@ public class SoundManager {
         deathSound = Gdx.audio.newSound(Gdx.files.internal("death.ogg"));
         bgStart = Gdx.audio.newMusic(Gdx.files.internal("btoad-start.ogg"));
         bgLoop = Gdx.audio.newMusic(Gdx.files.internal("btoad-loop.ogg"));
+        pauseMusic = Gdx.audio.newMusic(Gdx.files.internal("pause.ogg"));
         bgStart.setLooping(false);
         bgLoop.setLooping(true);
+        pauseMusic.setLooping(true);
 	}
 	
 	public void dispose() {
@@ -56,6 +64,7 @@ public class SoundManager {
         bgStart.dispose();
         bgLoop.dispose();
         deathSound.dispose();
+        pauseMusic.dispose();
 	}
 	
 	public void playCannonSound() {
@@ -97,18 +106,37 @@ public class SoundManager {
 	
 	public void playBgSound() {
 		if (isSoundOn) {
-			if (!bgStarted){
+			if (!isBGMStarted){
 			bgStart.play();
 			bgStart.setOnCompletionListener(new Music.OnCompletionListener() {
 		          @Override
 		          public void onCompletion(Music music) {
 		        	  bgLoop.play();
+		        	  isBGMStartFinished = true;
 		          }
 			});
-			bgStarted = true;
+			isBGMStarted = true;
 			}
 		}
 	}
 	
-
+	public void togglePauseMusic() {
+		if (isSoundOn) {
+			if (!isPauseMusicOn && isBGMStarted){
+				if (isBGMStartFinished)
+					bgLoop.pause();
+				else
+					bgStart.pause();
+				pauseMusic.play();
+				isPauseMusicOn = true;
+			} else if (isBGMStarted) {
+				pauseMusic.stop();
+				if (isBGMStartFinished)
+					bgLoop.play();
+				else
+					bgStart.play();
+				isPauseMusicOn = false;
+			}
+		}
+	}
 }

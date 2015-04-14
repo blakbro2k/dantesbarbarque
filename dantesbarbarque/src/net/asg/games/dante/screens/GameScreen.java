@@ -1,18 +1,14 @@
 package net.asg.games.dante.screens;
 
-import gr.sullenart.games.fruitcatcher.view.FallingObject;
-import gr.sullenart.games.fruitcatcher.view.FallingObjectState;
-
 import java.util.Iterator;
 
 import net.asg.games.dante.DantesBarbarqueGame;
 import net.asg.games.dante.manager.LevelManager;
 import net.asg.games.dante.models.Bob;
 import net.asg.games.dante.models.Button;
-import net.asg.games.dante.view.MovingGameObjectFactory;
 import net.asg.games.dante.view.MovingGameObject;
+import net.asg.games.dante.view.MovingGameObjectFactory;
 import net.asg.games.dante.view.MovingGameObjectState;
-import net.asg.games.dante.view.MovingObjectState;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -41,11 +37,11 @@ import com.badlogic.gdx.utils.TimeUtils;
 public class GameScreen extends CommonScreen {
 
 	protected Texture backgroundImage;
-	
+
 	protected Texture foregroundImage;
-	
+
 	protected Sprite backgroundSprite;
-	
+
 	protected Sprite foregroundSprite;
 
 	protected TextureRegion bobRegion;
@@ -55,7 +51,7 @@ public class GameScreen extends CommonScreen {
 	protected Button backButton;
 
 	private float bgScrollTimer;
-	
+
 	private float fgScrollTimer;
 
 	private MovingGameObjectFactory movingGameObjectFactory;
@@ -64,7 +60,7 @@ public class GameScreen extends CommonScreen {
 
 	private LevelManager levelManager;
 
-    private GameScreenState st;
+	private GameScreenState st;
 
 	private String scoreName;
 
@@ -83,17 +79,15 @@ public class GameScreen extends CommonScreen {
 		}
 		this.game = game;
 	}
-	
+
 	public void show() {
 		imageProvider = game.getImageProvider();
 		soundManager = game.getSoundManager();
 		soundManager.setSoundOn(true);
 		soundManager.playBgSound();
 
-		//backgroundImage = imageProvider.getBackground();
 		backgroundSprite = imageProvider.getBackgroundSprite();
-		
-		//foregroundImage = imageProvider.getForeground();
+
 		foregroundSprite = imageProvider.getForegroundSprite();
 
 		debugRenderer = new ShapeRenderer();
@@ -113,16 +107,10 @@ public class GameScreen extends CommonScreen {
 				bobRegion.getRegionHeight() - 20, bobRegion.getRegionWidth());
 
 		movingObjects = new Array<MovingGameObject>();
-	    scoreName = "score: 0";
-	    bitmapFontName = new BitmapFont();
-	    
-	    pauseScreen = imageProvider.getPauseScreen();
+		scoreName = "score: 0";
+		bitmapFontName = new BitmapFont();
 
-        
-		// movingObjects.add(movingGameObjectFactory.getFireball());
-
-		// backButton = new Button(imageProvider.getBack());
-		// backButton.setPos(10, 10);
+		pauseScreen = imageProvider.getPauseScreen();
 
 		levelManager = new LevelManager();
 
@@ -135,16 +123,22 @@ public class GameScreen extends CommonScreen {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		//set up the background and forground scroll properties
-		bgScrollTimer += delta * st.getBackgroundSpeed();
+
+		//Gdx.app.log("GameScreen", st.toString());
+
+		if(!st.isPaused){
+			bgScrollTimer += delta * st.getBackgroundSpeed();
+			fgScrollTimer += delta * st.getForegroundSpeed();
+		}
+
 		if (bgScrollTimer > 1.0f)
 			bgScrollTimer = 0.0f;
 
-		backgroundSprite.setU(bgScrollTimer);
-		backgroundSprite.setU2(bgScrollTimer + 1);
-		
-		fgScrollTimer += delta * st.getForegroundSpeed();
 		if (fgScrollTimer > 1.0f)
 			fgScrollTimer = 0.0f;
+
+		backgroundSprite.setU(bgScrollTimer);
+		backgroundSprite.setU2(bgScrollTimer + 1);
 
 		foregroundSprite.setU(fgScrollTimer);
 		foregroundSprite.setU2(fgScrollTimer + 1);
@@ -163,10 +157,11 @@ public class GameScreen extends CommonScreen {
 		backgroundSprite.draw(batch);
 		// Draw the foreground
 		foregroundSprite.draw(batch);
-		
+
+		scoreName = "score: " + st.score;
 		bitmapFontName.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 		bitmapFontName.draw(batch, scoreName, 10, imageProvider.getScreenHeight() - 15);
-		
+
 		batch.draw(bobRegion, bob.getPosition().x, bob.getPosition().y);
 		if (game.isDebugOn) {
 			debugRenderer.rect(bob.getPosition().x, bob.getPosition().y,
@@ -183,15 +178,12 @@ public class GameScreen extends CommonScreen {
 				levelManager.doLevelTransition(movingObject.doCollision(delta), st);
 			}
 		}
-		
-        if (st.isPaused) {
-        	batch.draw(pauseScreen, 0, 0);
-        }
+
+		if (st.isPaused) {
+			batch.draw(pauseScreen, 0, 0);
+		}
 
 		batch.end();
-		
-		st.score += st.standardMovingBonus * delta;
-		scoreName = "score: " + st.score;
 
 		if (game.isDebugOn) {
 			debugRenderer.end();
@@ -199,9 +191,11 @@ public class GameScreen extends CommonScreen {
 
 		processInput(delta);
 
-        if (st.isPaused) {
-        	return;
-        }
+		if (st.isPaused) {
+			return;
+		}
+
+		st.score += st.standardMovingBonus * delta;
 
 		if (TimeUtils.millis() - st.lastGameObjTime > st.spawnTime) {
 			movingObjects.add(levelManager.getNextObject(movingGameObjectFactory,st));
@@ -229,32 +223,36 @@ public class GameScreen extends CommonScreen {
 	}
 
 	private void processInput(float delta) {
-		//float delta = Gdx.graphics.getDeltaTime();
-		if (Gdx.input.isKeyPressed(Keys.UP)) {
-			bob.moveY(1, delta);
-		}
-		if (Gdx.input.isKeyPressed(Keys.DOWN)) {
-			bob.moveY(-1, delta);
-		}
-		if (Gdx.input.isKeyPressed(Keys.LEFT)) {
-			bob.moveX(-1, delta);
-		}
-		if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
-			bob.moveX(1, delta);
-		}
+		if (st.isLevelStarted && !st.isPaused){
+			if (Gdx.input.isKeyPressed(Keys.UP)) {
+				bob.moveY(1, delta);
+			}
+			if (Gdx.input.isKeyPressed(Keys.DOWN)) {
+				bob.moveY(-1, delta);
+			}
+			if (Gdx.input.isKeyPressed(Keys.LEFT)) {
+				bob.moveX(-1, delta);
+			}
+			if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
+				bob.moveX(1, delta);
+			}
 
-		bob.moveX(Gdx.input.getAccelerometerX(), delta);
-		bob.moveY(Gdx.input.getAccelerometerY(), delta);
+			bob.moveX(Gdx.input.getAccelerometerX(), delta);
+			bob.moveY(Gdx.input.getAccelerometerY(), delta);
+		}
 	}
-	
+
 	@Override
 	public void pause() {
 		if (!st.isPaused && st.isLevelStarted) {
+			soundManager.togglePauseMusic();
 			st.isPaused = true;
+
 			long pausedTime = TimeUtils.millis();
+
 			st.lastGameObjTime -= pausedTime;
 			st.roundEndTime -= pausedTime;
-			
+
 			st.movingObjectStates = new Array<MovingGameObjectState>();
 			for(MovingGameObject fo: movingObjects) {
 				st.movingObjectStates.add(fo.getState());
@@ -264,10 +262,11 @@ public class GameScreen extends CommonScreen {
 		}
 		game.persist(st);
 	}
-	
+
 	@Override
 	public void resume() {
 		if (st.isPaused) {
+			soundManager.togglePauseMusic();
 			st.isPaused = false;
 			long now = TimeUtils.millis();
 			st.lastGameObjTime += now;
@@ -279,51 +278,63 @@ public class GameScreen extends CommonScreen {
 	public boolean keyDown(int keycode) {
 		if (keycode == Keys.BACK || keycode == Keys.BACKSPACE) {
 			Gdx.app.exit();
-			return true;
 		}
-        if(keycode == Keys.P) {
-        	pause();
-        }	
-		return false;
+		if(keycode == Keys.P) {
+			if (st.isPaused)
+				resume();
+			else
+				pause();
+		}	
+		return true;
+	}
+
+	@Override
+	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		if (st.isPaused)
+			resume();
+		return true;
 	}
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		float delta = Gdx.graphics.getDeltaTime();
+		if(st.isLevelStarted && !st.isPaused){
+			float delta = Gdx.graphics.getDeltaTime();
 
-		Vector3 touchPos = new Vector3();
-		touchPos.set(screenX, screenY, 0);
-		camera.unproject(touchPos);
+			Vector3 touchPos = new Vector3();
+			touchPos.set(screenX, screenY, 0);
+			camera.unproject(touchPos);
 
-		if (bob.getPosition().x < touchPos.x)
-			bob.moveX(1, delta);
-		if (bob.getPosition().x > touchPos.x)
-			bob.moveX(-1, delta);
-		if (bob.getPosition().y < touchPos.y)
-			bob.moveY(1, delta);
-		if (bob.getPosition().y > touchPos.y)
-			bob.moveY(-1, delta);
-
+			if (bob.getPosition().x < touchPos.x)
+				bob.moveX(1, delta);
+			if (bob.getPosition().x > touchPos.x)
+				bob.moveX(-1, delta);
+			if (bob.getPosition().y < touchPos.y)
+				bob.moveY(1, delta);
+			if (bob.getPosition().y > touchPos.y)
+				bob.moveY(-1, delta);
+		}
 		return true;
 	}
 
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		float delta = Gdx.graphics.getDeltaTime();
+		if(st.isLevelStarted && !st.isPaused){
 
-		Vector3 touchPos = new Vector3();
-		touchPos.set(screenX, screenY, 0);
-		camera.unproject(touchPos);
+			float delta = Gdx.graphics.getDeltaTime();
 
-		if (bob.getPosition().x < touchPos.x)
-			bob.moveX(1, delta);
-		if (bob.getPosition().x > touchPos.x)
-			bob.moveX(-1, delta);
-		if (bob.getPosition().y < touchPos.y)
-			bob.moveY(1, delta);
-		if (bob.getPosition().y > touchPos.y)
-			bob.moveY(-1, delta);
+			Vector3 touchPos = new Vector3();
+			touchPos.set(screenX, screenY, 0);
+			camera.unproject(touchPos);
 
+			if (bob.getPosition().x < touchPos.x)
+				bob.moveX(1, delta);
+			if (bob.getPosition().x > touchPos.x)
+				bob.moveX(-1, delta);
+			if (bob.getPosition().y < touchPos.y)
+				bob.moveY(1, delta);
+			if (bob.getPosition().y > touchPos.y)
+				bob.moveY(-1, delta);
+		}
 		return true;
 	}
 }

@@ -127,5 +127,25 @@ public class GameScreenState implements Serializable {
 		movingObjectStates = json.readValue( "movingObjects", Array.class,
 				MovingGameObjectState.class, jsonData ); 
 	}
+	
+	public String toString(){
+		return "score: " + score + "\n" +
+				"bobX: " + bobX + "\n" +
+				"bobY: " + bobY + "\n" +
+				"spawnTime: " + spawnTime + "\n" +
+				"roundCount: " + roundCount + "\n" +
+				"stageType: " + stageType + "\n" +
+				"lastStageType: " + lastStageType + "\n" +
+				"standardMovingBonus: " + standardMovingBonus + "\n" +
+				"isPaused: " + isPaused + "\n" +
+				"isLevelStarted: " + isLevelStarted + "\n" +
+				"isDead: " + isDead + "\n" +
+				"isEndless: " + isEndless + "\n" +
+				"gameState: " + gameState + "\n" +
+				"gameSpeed: " + gameSpeed + "\n" +
+				"lastGameObjTime: " + lastGameObjTime + "\n" +
+				"roundEndTime: " + roundEndTime + "\n" +
+				"CurrentTime: " + TimeUtils.millis();
+	}
 
 }

@@ -2,6 +2,7 @@ package net.asg.games.dante;
 
 import net.asg.games.dante.images.ImageProvider;
 import net.asg.games.dante.screens.GameScreen;
+import net.asg.games.dante.screens.GameScreenState;
 import net.asg.games.dante.sound.SoundManager;
 
 import com.badlogic.gdx.Game;
@@ -18,6 +19,7 @@ public class DantesBarbarqueGame extends Game{
 	private SoundManager soundManager;
 	public boolean isDebugOn = false;
 	//private FPSLogger fpsLogger;
+	private StateManager stateManager;
 
 	public DantesBarbarqueGame(){
 		this.isDebugOn = false;
@@ -27,6 +29,8 @@ public class DantesBarbarqueGame extends Game{
 		this.isDebugOn = isDebugOn;
 	}
 	
+	
+	
 	@Override
 	public void create() {
 		imageProvider = new ImageProvider();
@@ -35,10 +39,10 @@ public class DantesBarbarqueGame extends Game{
         soundManager = new SoundManager();
         soundManager.load();
         
-        //fpsLogger = new FPSLogger();
         gameScreen = new GameScreen(this, null);
 
-        
+        stateManager = new StateManager();
+
         //menuScreen = new MenuScreen(this);
         //levelScreen = new LevelScreen(this);
         gotoGameScreen();
@@ -67,6 +71,10 @@ public class DantesBarbarqueGame extends Game{
 	//public TextResources getTextResources() {
 	//	return textResources;
 	//}
+	
+	public void persist(GameScreenState gameScreenState) {
+		stateManager.persist(gameScreenState);
+	}
 	
 	@Override
 	public void dispose() {
